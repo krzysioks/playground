@@ -17,8 +17,17 @@ export default env => {
                     use: {
                         loader: 'babel-loader'
                     }
+                },
+                {
+                    test: /\.scss$|\.css$/,
+                    loader: 'style-loader!css-loader'
                 }
             ]
-        }
+        },
+        plugins: removeEmpty([
+            new MiniCssExtractPlugin({
+                filename: 'style/[name].css'
+            })
+        ])
     };
 };
