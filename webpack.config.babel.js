@@ -23,11 +23,6 @@ export default env => {
                     loader: 'style-loader!css-loader'
                 }
             ]
-        },
-        plugins: removeEmpty([
-            new MiniCssExtractPlugin({
-                filename: 'style/[name].css'
-            })
-        ])
+        }
     };
 };
