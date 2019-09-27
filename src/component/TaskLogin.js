@@ -3,11 +3,12 @@ import { Link, withRouter } from 'react-router-dom';
 import PgInput from './PgInput';
 import { Card, CardBody, CardTitle, Button } from 'reactstrap';
 import { Formik, Field, Form } from 'formik';
+import { postXhr } from '../common/utils';
 import * as Yup from 'yup';
 
 const LoginSchema = Yup.object().shape({
     username: Yup.string()
-        .min(5, 'User name is too short')
+        .min(2, 'User name is too short')
         .max(50, 'User name is too long')
 
         .required('Username is required'),
@@ -31,9 +32,21 @@ const TaskLogin = (props) => {
     //     const newValue = counter + 1;
     //     setCounter(newValue);
     // };
-    const _handleOnClick = () => {
-        console.info('test', props);
-        props.history.push('/hooks');
+    const handleSubmit = async (values, actions) => {
+        // console.log('values, actions: ', values, actions);
+        const { isUser, passwordMatched } = await postXhr('/task/login', values);
+        console.log('isUser, passwordMatched: ', isUser, passwordMatched);
+        if (isUser) {
+            if (passwordMatched) {
+                //case when all ok. navigate to task main view which requires authentication
+                props.history.push('/hooks');
+            } else {
+                actions.setErrors({ password: 'Password does not match' });
+            }
+        } else {
+            actions.setErrors({ username: 'User does not exist' });
+        }
+        actions.setSubmitting(false);
     }
 
     return (
@@ -45,13 +58,14 @@ const TaskLogin = (props) => {
                         initialValues={{ username: '', password: '' }}
                         validationSchema={LoginSchema}//schema used to validate form fields
                         //below are destructured Formik props, which represent the state of form (i.e. if it is valid or not, if any value changed...)
+                        onSubmit={handleSubmit}
                         component={({ isValid, isSubmitting }) => (
                             < Form >
                                 <Field component={PgInput} name="username" className="mt-1" type="text" placeholder="user name" />
                                 {/* PgInput wraps reactstrap form input component and add error msg placeholder so it is possible to use material design components with Formik */}
                                 <Field component={PgInput} name="password" className="mt-1" type="password" placeholder="password" />
                                 <div className="d-flex flex-row justify-content-between mt-2">
-                                    <Button disabled={!isValid || isSubmitting} onClick={_handleOnClick} color="primary">log in</Button>
+                                    <Button disabled={!isValid || isSubmitting} color="primary">log in</Button>
                                     <Link className="align-self-end" to="/task/register">register</Link>
                                 </div>
                             </Form>
