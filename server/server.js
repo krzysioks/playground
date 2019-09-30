@@ -37,16 +37,6 @@ app.use(taskRoute);
 //     console.log('err', err);
 // }
 
-// app.get('/test', (req, res) => {
-//     console.log('req, res: ', req.body);
-//     //res.send() - sends server response to provided url (i.e.: what will be shown in browser window)
-//     res.send({
-//         name: 'Andrew',
-//         helloString: 'Hello Express',
-//         likes: ['biking', 'tennis', 'basketball']
-//     });
-// });
-
 // listen to the requests
 app.listen(port, () => {
     console.info(`Server is on port ${port}`);

@@ -31,8 +31,22 @@ const userSchema = mongoose.Schema({
                 throw new Error('Password must have at least one: large and small letter, number, special character "!@#$%^&*())"');
             }
         }
-    }
+    },
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }]
 });
+
+userSchema.methods.generateAuthToken = async function () {
+    const token = jwt.sign({ _id: this._id.toString() }, 'thisismysecret');
+    this.tokens = [...this.tokens, { token }];
+    this.save();
+    return token;
+
+}
 
 userSchema.statics.findByCredentials = async function (username, password) {
     const user = await this.findOne({ username });
