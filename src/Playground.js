@@ -1,6 +1,7 @@
 import React from 'react';
 import Hooks from './component/Hooks';
-import TaskApp from './component/TaskLogin';
+import TaskLogin from './component/TaskLogin';
+import TaskRegister from './component/TaskRegister';
 import { HashRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 const Playground = () => {
@@ -11,7 +12,8 @@ const Playground = () => {
         <HashRouter>
             <Switch>
                 <Route path="/hooks" component={Hooks} />
-                <Route path="/task/login" component={TaskApp} />
+                <Route path="/task/login" component={TaskLogin} />
+                <Route path="/task/register" component={TaskRegister} />
                 <Redirect from="/" to="/task/login" exact />
             </Switch>
         </HashRouter>

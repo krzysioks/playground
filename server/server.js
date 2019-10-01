@@ -19,24 +19,6 @@ app.use(bodyParser.json());
 // REST API handler is pushed to separate file, where express.Router() is used to define the API. Then it is imported in main server.js (testRoute) and registered. It is usefull to organize code and keep different routes in separate files
 app.use(taskRoute);
 
-//every time we want to add new user we create a new instance of UserModel.
-// const user = new UserModel({
-//     username: 'Mike',
-//     email: 'mike@gmail.com',
-//     password: 'JonBlack1928!'
-// });
-
-// try {
-//     user.save().then(() => {
-//     }).catch(err => {
-//         //we are catching any validation errors
-//         console.log('validate error', err);
-//     });
-
-// } catch (err) {
-//     console.log('err', err);
-// }
-
 // listen to the requests
 app.listen(port, () => {
     console.info(`Server is on port ${port}`);

@@ -44611,7 +44611,7 @@ var safeInvoke = function safeInvoke(fn) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64256,7 +64256,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _component_Hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component/Hooks */ "./src/component/Hooks.js");
 /* harmony import */ var _component_TaskLogin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./component/TaskLogin */ "./src/component/TaskLogin.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _component_TaskRegister__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./component/TaskRegister */ "./src/component/TaskRegister.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 
@@ -64266,13 +64268,16 @@ var Playground = function Playground() {
   return (// router used to route between entry point components which implements different exercises
     //hooks - simple example of hooks
     //task - app to learn how to use: frontend - hooks, formik (building forms), validation; backend - REST, authentication, mongodb
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
       path: "/hooks",
       component: _component_Hooks__WEBPACK_IMPORTED_MODULE_1__["default"]
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
       path: "/task/login",
       component: _component_TaskLogin__WEBPACK_IMPORTED_MODULE_2__["default"]
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
+      path: "/task/register",
+      component: _component_TaskRegister__WEBPACK_IMPORTED_MODULE_3__["default"]
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Redirect"], {
       from: "/",
       to: "/task/login",
       exact: true
@@ -64636,6 +64641,154 @@ var TaskLogin = function TaskLogin(props) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(TaskLogin));
+
+/***/ }),
+
+/***/ "./src/component/TaskRegister.js":
+/*!***************************************!*\
+  !*** ./src/component/TaskRegister.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.promise */ "./node_modules/core-js/modules/es6.promise.js");
+/* harmony import */ var core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
+/* harmony import */ var core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _PgInput__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PgInput */ "./src/component/PgInput.js");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _common_utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../common/utils */ "./src/common/utils.js");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! yup */ "./node_modules/yup/lib/index.js");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(yup__WEBPACK_IMPORTED_MODULE_9__);
+
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+
+
+
+
+var RegisterSchema = yup__WEBPACK_IMPORTED_MODULE_9__["object"]().shape({
+  username: yup__WEBPACK_IMPORTED_MODULE_9__["string"]().min(2, 'User name is too short').max(50, 'User name is too long').required('Username is required'),
+  password: yup__WEBPACK_IMPORTED_MODULE_9__["string"]().min(8, 'Password too short').matches(/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()])/, 'Password must have at least one: large and small letter, number, special character "!@#$%^&*())"').required('Password is required'),
+  email: yup__WEBPACK_IMPORTED_MODULE_9__["string"]().required('Email is required').email('Email is invalid')
+});
+
+var TaskRegister = function TaskRegister(props) {
+  var handleSubmit =
+  /*#__PURE__*/
+  function () {
+    var _ref = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee(values, actions) {
+      var result;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_8__["postXhr"])('/task/register', values);
+
+            case 2:
+              result = _context.sent;
+
+              if (result && result.userRegistered) {
+                actions.setStatus({
+                  msg: "Dear ".concat(values.username, ", you signed up successfully.")
+                }); // if (passwordMatched) {
+                //     //case when all ok. navigate to task main view which requires authentication
+                //     props.history.push('/hooks');
+                // } else {
+                //     actions.setErrors({ password: 'Password does not match' });
+                // }
+              } else {
+                console.log('result: ', result); // actions.setErrors({ username: 'User does not exist' });
+              }
+
+              actions.setSubmitting(false);
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function handleSubmit(_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+    className: "app d-flex justify-content-center align-items-center"
+  }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["Card"], {
+    className: "loginCard"
+  }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["CardTitle"], null, "Please sign up to use Task App"), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Formik"], {
+    initialValues: {
+      username: '',
+      password: '',
+      email: ''
+    },
+    validationSchema: RegisterSchema,
+    onSubmit: handleSubmit,
+    component: function component(_ref2) {
+      var isValid = _ref2.isValid,
+          isSubmitting = _ref2.isSubmitting,
+          status = _ref2.status;
+      return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Form"], null, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Field"], {
+        component: _PgInput__WEBPACK_IMPORTED_MODULE_5__["default"],
+        name: "username",
+        className: "mt-1",
+        type: "text",
+        placeholder: "user name"
+      }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Field"], {
+        component: _PgInput__WEBPACK_IMPORTED_MODULE_5__["default"],
+        name: "password",
+        className: "mt-1",
+        type: "password",
+        placeholder: "password"
+      }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Field"], {
+        component: _PgInput__WEBPACK_IMPORTED_MODULE_5__["default"],
+        name: "email",
+        className: "mt-1",
+        type: "text",
+        placeholder: "example@domian.com"
+      }), status && status.msg ? react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["Input"], {
+        type: "hidden",
+        valid: true
+      }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["FormFeedback"], {
+        valid: true
+      }, status.msg)) : '', react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+        className: "d-flex flex-row justify-content-between mt-2"
+      }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["Button"], {
+        type: "submit",
+        disabled: !isValid || isSubmitting,
+        color: "primary"
+      }, "sign up"), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+        className: "align-self-end",
+        to: "/task/login"
+      }, "cancel")));
+    }
+  }))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(TaskRegister));
 
 /***/ }),
 
