@@ -20,21 +20,34 @@ const RegisterSchema = Yup.object().shape({
         .email('Email is invalid')
 });
 
-const TaskRegister = (props) => {
+const TaskRegister = () => {
     const handleSubmit = async (values, actions) => {
-        const result = await postXhr('/task/register', values);
-        if (result && result.userRegistered) {
-            actions.setStatus({ msg: `Dear ${values.username}, you signed up successfully.` });
-            // if (passwordMatched) {
-            //     //case when all ok. navigate to task main view which requires authentication
-            //     props.history.push('/hooks');
-            // } else {
-            //     actions.setErrors({ password: 'Password does not match' });
-            // }
+        console.info('values', values)
+        //check if password match with retyped one
+        if (values.password === values.retypedpassword) {
+            const { userRegistered, statusList } = await postXhr('/task/register', values);
+            if (userRegistered) {
+                actions.setStatus({ msg: `Dear ${values.username}, you signed up successfully.` });
+                // if (passwordMatched) {
+                //     //case when all ok. navigate to task main view which requires authentication
+                //     props.history.push('/hooks');
+                // } else {
+                //     actions.setErrors({ password: 'Password does not match' });
+                // }
+            } else {
+                const errorObj = {};
+                statusList.forEach(([key, , msg]) => {
+                    errorObj[key] = msg;
+                });
+                actions.setErrors(errorObj);
+            }
         } else {
-            console.log('result: ', result);
-            // actions.setErrors({ username: 'User does not exist' });
+            actions.setErrors({
+                retypedpassword: 'Passwords do not match'
+            });
         }
+
+
         actions.setSubmitting(false);
     }
 
@@ -44,13 +57,14 @@ const TaskRegister = (props) => {
                 <CardBody>
                     <CardTitle>Please sign up to use Task App</CardTitle>
                     <Formik
-                        initialValues={{ username: '', password: '', email: '' }}
+                        initialValues={{ username: '', password: '', email: '', retypedpassword: '' }}
                         validationSchema={RegisterSchema}
                         onSubmit={handleSubmit}
                         component={({ isValid, isSubmitting, status }) => (
                             < Form >
                                 <Field component={PgInput} name="username" className="mt-1" type="text" placeholder="user name" />
                                 <Field component={PgInput} name="password" className="mt-1" type="password" placeholder="password" />
+                                <Field component={PgInput} name="retypedpassword" className="mt-1" type="password" placeholder="retype password" />
                                 <Field component={PgInput} name="email" className="mt-1" type="text" placeholder="example@domian.com" />
 
                                 {status && status.msg ? (<div>

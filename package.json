@@ -4,11 +4,16 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server/server.js",
+        "test": "env-cmd -f ./server/config/test.env jest",
+        "test:watch": "env-cmd -f ./server/config/test.env jest --watch",
         "build": "webpack --env.prod",
         "build:dev": "webpack --env.dev",
         "build:watch": "webpack -w --env.dev",
-        "server:watch": "nodemon server/server.js"
+        "server:watch": "env-cmd -f ./server/config/dev.env nodemon server/server.js"
+    },
+    "jest": {
+        "testEnvironment": "node"
     },
     "keywords": [],
     "author": "",
@@ -21,7 +26,9 @@
         "bcrypt": "^3.0.6",
         "bootstrap": "^4.3.1",
         "css-loader": "^3.2.0",
+        "env-cmd": "^10.0.1",
         "formik": "^1.5.8",
+        "jest": "^24.9.0",
         "lodash": "^4.17.15",
         "mini-css-extract-plugin": "^0.8.0",
         "node-sass": "^4.12.0",
@@ -31,6 +38,7 @@
         "reactstrap": "^8.0.1",
         "sass-loader": "^8.0.0",
         "style-loader": "^1.0.0",
+        "supertest": "^4.0.2",
         "validator": "^11.1.0",
         "webpack": "^4.20.0",
         "webpack-cli": "^3.1.1",

@@ -25,8 +25,8 @@ taskRouter.post('/task/register', async (req, res) => {
 
     //every time we want to add new user we create a new instance of UserModel.
     const user = new UserModel({
-        username: 'd',
-        email: 'd',
+        username,
+        email,
         password
     });
 
@@ -34,18 +34,27 @@ taskRouter.post('/task/register', async (req, res) => {
         await user.save();
         res.status(200).send({ userRegistered: true });
     } catch (err) {
-        //TODO test (write mocha test for this part) error handler + add support on front end
+        let statusList = [];
 
-        //mapping errors to list of [key, message], which is returned to front end
-        const statusList = Object.keys(err.errors).reduce((statusList, key) => {
-            if (err.errors[key].kind === 'user defined') {
-                statusList = [...statusList, [key, err.errors[key].message]];
-            } else {
-                statusList = [...statusList, `${key.toUpperCase()} ${errorMapper[err.errors[key].kind]}`];
-            }
+        if (err.errors) {
+            //mapping errors to list of [key, kind, message], which is returned to front end
+            statusList = Object.keys(err.errors).reduce((statusList, key) => {
+                if (err.errors[key].kind === 'user defined') {
+                    statusList = [...statusList, [key, 'user defined', err.errors[key].message]];
+                } else {
+                    const keyDisp = key.charAt(0).toUpperCase() + key.slice(1);
+                    statusList = [...statusList, [key, err.errors[key].kind, `${keyDisp} ${errorMapper[err.errors[key].kind]}`]];
+                }
 
-            return statusList;
-        }, []);
+                return statusList;
+            }, []);
+        } else {
+            //case when user with given props already exists in database
+            const key = err.errmsg.includes('username') ? 'username' : 'email';
+            const keyDisp = key.charAt(0).toUpperCase() + key.slice(1);
+            statusList[0] = [key, 'unique', `${keyDisp} ${errorMapper.unique}`];
+        }
+
         res.status(200).send({ userRegistered: false, statusList });
     }
 });

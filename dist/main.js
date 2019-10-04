@@ -64653,24 +64653,41 @@ var TaskLogin = function TaskLogin(props) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.promise */ "./node_modules/core-js/modules/es6.promise.js");
-/* harmony import */ var core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
-/* harmony import */ var core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _PgInput__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PgInput */ "./src/component/PgInput.js");
-/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var _common_utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../common/utils */ "./src/common/utils.js");
-/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! yup */ "./node_modules/yup/lib/index.js");
-/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(yup__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es7_symbol_async_iterator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es7.symbol.async-iterator */ "./node_modules/core-js/modules/es7.symbol.async-iterator.js");
+/* harmony import */ var core_js_modules_es7_symbol_async_iterator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es7_symbol_async_iterator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es6_symbol__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.symbol */ "./node_modules/core-js/modules/es6.symbol.js");
+/* harmony import */ var core_js_modules_es6_symbol__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_symbol__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es6.promise */ "./node_modules/core-js/modules/es6.promise.js");
+/* harmony import */ var core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
+/* harmony import */ var core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _PgInput__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./PgInput */ "./src/component/PgInput.js");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _common_utils__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../common/utils */ "./src/common/utils.js");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! yup */ "./node_modules/yup/lib/index.js");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(yup__WEBPACK_IMPORTED_MODULE_12__);
 
 
 
+
+
+
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -64683,31 +64700,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-var RegisterSchema = yup__WEBPACK_IMPORTED_MODULE_9__["object"]().shape({
-  username: yup__WEBPACK_IMPORTED_MODULE_9__["string"]().min(2, 'User name is too short').max(50, 'User name is too long').required('Username is required'),
-  password: yup__WEBPACK_IMPORTED_MODULE_9__["string"]().min(8, 'Password too short').matches(/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()])/, 'Password must have at least one: large and small letter, number, special character "!@#$%^&*())"').required('Password is required'),
-  email: yup__WEBPACK_IMPORTED_MODULE_9__["string"]().required('Email is required').email('Email is invalid')
+var RegisterSchema = yup__WEBPACK_IMPORTED_MODULE_12__["object"]().shape({
+  username: yup__WEBPACK_IMPORTED_MODULE_12__["string"]().min(2, 'User name is too short').max(50, 'User name is too long').required('Username is required'),
+  password: yup__WEBPACK_IMPORTED_MODULE_12__["string"]().min(8, 'Password too short').matches(/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()])/, 'Password must have at least one: large and small letter, number, special character "!@#$%^&*())"').required('Password is required'),
+  email: yup__WEBPACK_IMPORTED_MODULE_12__["string"]().required('Email is required').email('Email is invalid')
 });
 
-var TaskRegister = function TaskRegister(props) {
+var TaskRegister = function TaskRegister() {
   var handleSubmit =
   /*#__PURE__*/
   function () {
     var _ref = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee(values, actions) {
-      var result;
+      var _ref2, userRegistered, statusList, errorObj;
+
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_8__["postXhr"])('/task/register', values);
+              console.info('values', values); //check if password match with retyped one
 
-            case 2:
-              result = _context.sent;
+              if (!(values.password === values.retypedpassword)) {
+                _context.next = 10;
+                break;
+              }
 
-              if (result && result.userRegistered) {
+              _context.next = 4;
+              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_11__["postXhr"])('/task/register', values);
+
+            case 4:
+              _ref2 = _context.sent;
+              userRegistered = _ref2.userRegistered;
+              statusList = _ref2.statusList;
+
+              if (userRegistered) {
                 actions.setStatus({
                   msg: "Dear ".concat(values.username, ", you signed up successfully.")
                 }); // if (passwordMatched) {
@@ -64717,12 +64744,29 @@ var TaskRegister = function TaskRegister(props) {
                 //     actions.setErrors({ password: 'Password does not match' });
                 // }
               } else {
-                console.log('result: ', result); // actions.setErrors({ username: 'User does not exist' });
+                errorObj = {};
+                statusList.forEach(function (_ref3) {
+                  var _ref4 = _slicedToArray(_ref3, 3),
+                      key = _ref4[0],
+                      msg = _ref4[2];
+
+                  errorObj[key] = msg;
+                });
+                actions.setErrors(errorObj);
               }
 
+              _context.next = 11;
+              break;
+
+            case 10:
+              actions.setErrors({
+                retypedpassword: 'Passwords do not match'
+              });
+
+            case 11:
               actions.setSubmitting(false);
 
-            case 5:
+            case 12:
             case "end":
               return _context.stop();
           }
@@ -64735,52 +64779,59 @@ var TaskRegister = function TaskRegister(props) {
     };
   }();
 
-  return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+  return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
     className: "app d-flex justify-content-center align-items-center"
-  }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["Card"], {
+  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_9__["Card"], {
     className: "loginCard"
-  }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["CardTitle"], null, "Please sign up to use Task App"), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Formik"], {
+  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_9__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_9__["CardTitle"], null, "Please sign up to use Task App"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Formik"], {
     initialValues: {
       username: '',
       password: '',
-      email: ''
+      email: '',
+      retypedpassword: ''
     },
     validationSchema: RegisterSchema,
     onSubmit: handleSubmit,
-    component: function component(_ref2) {
-      var isValid = _ref2.isValid,
-          isSubmitting = _ref2.isSubmitting,
-          status = _ref2.status;
-      return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Form"], null, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Field"], {
-        component: _PgInput__WEBPACK_IMPORTED_MODULE_5__["default"],
+    component: function component(_ref5) {
+      var isValid = _ref5.isValid,
+          isSubmitting = _ref5.isSubmitting,
+          status = _ref5.status;
+      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Form"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
+        component: _PgInput__WEBPACK_IMPORTED_MODULE_8__["default"],
         name: "username",
         className: "mt-1",
         type: "text",
         placeholder: "user name"
-      }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Field"], {
-        component: _PgInput__WEBPACK_IMPORTED_MODULE_5__["default"],
+      }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
+        component: _PgInput__WEBPACK_IMPORTED_MODULE_8__["default"],
         name: "password",
         className: "mt-1",
         type: "password",
         placeholder: "password"
-      }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Field"], {
-        component: _PgInput__WEBPACK_IMPORTED_MODULE_5__["default"],
+      }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
+        component: _PgInput__WEBPACK_IMPORTED_MODULE_8__["default"],
+        name: "retypedpassword",
+        className: "mt-1",
+        type: "password",
+        placeholder: "retype password"
+      }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_10__["Field"], {
+        component: _PgInput__WEBPACK_IMPORTED_MODULE_8__["default"],
         name: "email",
         className: "mt-1",
         type: "text",
         placeholder: "example@domian.com"
-      }), status && status.msg ? react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["Input"], {
+      }), status && status.msg ? react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_9__["Input"], {
         type: "hidden",
         valid: true
-      }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["FormFeedback"], {
+      }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_9__["FormFeedback"], {
         valid: true
-      }, status.msg)) : '', react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+      }, status.msg)) : '', react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
         className: "d-flex flex-row justify-content-between mt-2"
-      }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["Button"], {
+      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_9__["Button"], {
         type: "submit",
         disabled: !isValid || isSubmitting,
         color: "primary"
-      }, "sign up"), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+      }, "sign up"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["Link"], {
         className: "align-self-end",
         to: "/task/login"
       }, "cancel")));
@@ -64788,7 +64839,7 @@ var TaskRegister = function TaskRegister(props) {
   }))));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(TaskRegister));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["withRouter"])(TaskRegister));
 
 /***/ }),
 
