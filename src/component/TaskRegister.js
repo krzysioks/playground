@@ -22,7 +22,6 @@ const RegisterSchema = Yup.object().shape({
 
 const TaskRegister = () => {
     const handleSubmit = async (values, actions) => {
-        console.info('values', values)
         //check if password match with retyped one
         if (values.password === values.retypedpassword) {
             const { userRegistered, statusList } = await postXhr('/task/register', values);

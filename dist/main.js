@@ -64719,17 +64719,15 @@ var TaskRegister = function TaskRegister() {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.info('values', values); //check if password match with retyped one
-
               if (!(values.password === values.retypedpassword)) {
-                _context.next = 10;
+                _context.next = 9;
                 break;
               }
 
-              _context.next = 4;
+              _context.next = 3;
               return Object(_common_utils__WEBPACK_IMPORTED_MODULE_11__["postXhr"])('/task/register', values);
 
-            case 4:
+            case 3:
               _ref2 = _context.sent;
               userRegistered = _ref2.userRegistered;
               statusList = _ref2.statusList;
@@ -64755,18 +64753,18 @@ var TaskRegister = function TaskRegister() {
                 actions.setErrors(errorObj);
               }
 
-              _context.next = 11;
+              _context.next = 10;
               break;
 
-            case 10:
+            case 9:
               actions.setErrors({
                 retypedpassword: 'Passwords do not match'
               });
 
-            case 11:
+            case 10:
               actions.setSubmitting(false);
 
-            case 12:
+            case 11:
             case "end":
               return _context.stop();
           }
