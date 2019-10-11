@@ -27,12 +27,6 @@ const TaskRegister = () => {
             const { userRegistered, statusList } = await postXhr('/task/register', values);
             if (userRegistered) {
                 actions.setStatus({ msg: `Dear ${values.username}, you signed up successfully.` });
-                // if (passwordMatched) {
-                //     //case when all ok. navigate to task main view which requires authentication
-                //     props.history.push('/hooks');
-                // } else {
-                //     actions.setErrors({ password: 'Password does not match' });
-                // }
             } else {
                 const errorObj = {};
                 statusList.forEach(([key, , msg]) => {

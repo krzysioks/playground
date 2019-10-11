@@ -2,6 +2,7 @@ import React from 'react';
 import Hooks from './component/Hooks';
 import TaskLogin from './component/TaskLogin';
 import TaskRegister from './component/TaskRegister';
+import TaskMainView from './component/TaskMainView';
 import { HashRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 const Playground = () => {
@@ -14,6 +15,7 @@ const Playground = () => {
                 <Route path="/hooks" component={Hooks} />
                 <Route path="/task/login" component={TaskLogin} />
                 <Route path="/task/register" component={TaskRegister} />
+                <Route path="/task/mainview" component={TaskMainView} />
                 <Redirect from="/" to="/task/login" exact />
             </Switch>
         </HashRouter>

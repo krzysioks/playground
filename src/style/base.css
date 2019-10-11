@@ -8,3 +8,10 @@ html, body {
     width: 300px;
     height: 450px;
 }
+.statusContainer {
+    top: 7px;
+    margin-left: 45px;
+}
+.statusLabel {
+    top: -2px;
+}

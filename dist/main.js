@@ -3362,7 +3362,7 @@ exports.push([module.i, "/*!\n * Bootstrap v4.3.1 (https://getbootstrap.com/)\n 
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "html, body {\n    height: 100%;\n  }\n.app {\n    height: 100%;\n}\n.loginCard {\n    width: 300px;\n    height: 450px;\n}", ""]);
+exports.push([module.i, "html, body {\n    height: 100%;\n  }\n.app {\n    height: 100%;\n}\n.loginCard {\n    width: 300px;\n    height: 450px;\n}\n.statusContainer {\n    top: 7px;\n    margin-left: 45px;\n}\n.statusLabel {\n    top: -2px;\n}", ""]);
 
 
 /***/ }),
@@ -47730,6 +47730,42 @@ exports.classNamesShape = classNamesShape;
 
 /***/ }),
 
+/***/ "./node_modules/react-use-localstorage/dist/react-use-localstorage.esm.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/react-use-localstorage/dist/react-use-localstorage.esm.js ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function useLocalStorage(key, initialValue) {
+  if (initialValue === void 0) {
+    initialValue = '';
+  }
+
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(function () {
+    return localStorage.getItem(key) || initialValue;
+  }),
+      value = _React$useState[0],
+      setValue = _React$useState[1];
+
+  react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect(function () {
+    localStorage.setItem(key, value);
+  }, [value]);
+  return [value, setValue];
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (useLocalStorage);
+//# sourceMappingURL=react-use-localstorage.esm.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/react/cjs/react.development.js":
 /*!*****************************************************!*\
   !*** ./node_modules/react/cjs/react.development.js ***!
@@ -64257,7 +64293,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _component_Hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component/Hooks */ "./src/component/Hooks.js");
 /* harmony import */ var _component_TaskLogin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./component/TaskLogin */ "./src/component/TaskLogin.js");
 /* harmony import */ var _component_TaskRegister__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./component/TaskRegister */ "./src/component/TaskRegister.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _component_TaskMainView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./component/TaskMainView */ "./src/component/TaskMainView.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 
@@ -64268,16 +64306,19 @@ var Playground = function Playground() {
   return (// router used to route between entry point components which implements different exercises
     //hooks - simple example of hooks
     //task - app to learn how to use: frontend - hooks, formik (building forms), validation; backend - REST, authentication, mongodb
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Route"], {
       path: "/hooks",
       component: _component_Hooks__WEBPACK_IMPORTED_MODULE_1__["default"]
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Route"], {
       path: "/task/login",
       component: _component_TaskLogin__WEBPACK_IMPORTED_MODULE_2__["default"]
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Route"], {
       path: "/task/register",
       component: _component_TaskRegister__WEBPACK_IMPORTED_MODULE_3__["default"]
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Redirect"], {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Route"], {
+      path: "/task/mainview",
+      component: _component_TaskMainView__WEBPACK_IMPORTED_MODULE_4__["default"]
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Redirect"], {
       from: "/",
       to: "/task/login",
       exact: true
@@ -64503,17 +64544,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
 /* harmony import */ var core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _PgInput__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PgInput */ "./src/component/PgInput.js");
-/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var _common_utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../common/utils */ "./src/common/utils.js");
-/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! yup */ "./node_modules/yup/lib/index.js");
-/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(yup__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es7_symbol_async_iterator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es7.symbol.async-iterator */ "./node_modules/core-js/modules/es7.symbol.async-iterator.js");
+/* harmony import */ var core_js_modules_es7_symbol_async_iterator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es7_symbol_async_iterator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es6_symbol__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es6.symbol */ "./node_modules/core-js/modules/es6.symbol.js");
+/* harmony import */ var core_js_modules_es6_symbol__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_symbol__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_use_localstorage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-use-localstorage */ "./node_modules/react-use-localstorage/dist/react-use-localstorage.esm.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _PgInput__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./PgInput */ "./src/component/PgInput.js");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _common_utils__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../common/utils */ "./src/common/utils.js");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! yup */ "./node_modules/yup/lib/index.js");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(yup__WEBPACK_IMPORTED_MODULE_13__);
+
+
+
 
 
 
@@ -64522,6 +64573,13 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -64529,13 +64587,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-var LoginSchema = yup__WEBPACK_IMPORTED_MODULE_9__["object"]().shape({
-  username: yup__WEBPACK_IMPORTED_MODULE_9__["string"]().min(2, 'User name is too short').max(50, 'User name is too long').required('Username is required'),
-  password: yup__WEBPACK_IMPORTED_MODULE_9__["string"]().min(8, 'Password too short').matches(/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()])/, 'Password must have at least one: large and small letter, number, special character "!@#$%^&*())"').required('Password is required')
+
+
+var LoginSchema = yup__WEBPACK_IMPORTED_MODULE_13__["object"]().shape({
+  username: yup__WEBPACK_IMPORTED_MODULE_13__["string"]().min(2, 'User name is too short').max(50, 'User name is too long').required('Username is required'),
+  password: yup__WEBPACK_IMPORTED_MODULE_13__["string"]().min(8, 'Password too short').matches(/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()])/, 'Password must have at least one: large and small letter, number, special character "!@#$%^&*())"').required('Password is required')
 });
 
 var TaskLogin = function TaskLogin(props) {
-  // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
+  var _useLocalStorage = Object(react_use_localstorage__WEBPACK_IMPORTED_MODULE_7__["default"])('token', ''),
+      _useLocalStorage2 = _slicedToArray(_useLocalStorage, 2),
+      setItem = _useLocalStorage2[1]; // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
   // useEffect(() => {
   //     fetch('./test')
   //         .then(res => res.json())
@@ -64548,31 +64610,34 @@ var TaskLogin = function TaskLogin(props) {
   //     const newValue = counter + 1;
   //     setCounter(newValue);
   // };
+
+
   var handleSubmit =
   /*#__PURE__*/
   function () {
     var _ref = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee(values, actions) {
-      var _ref2, isUser, passwordMatched;
+      var _ref2, isUser, passwordMatched, token;
 
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_8__["postXhr"])('/task/login', values);
+              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_12__["postXhr"])('/task/login', values);
 
             case 2:
               _ref2 = _context.sent;
               isUser = _ref2.isUser;
               passwordMatched = _ref2.passwordMatched;
-              console.log('isUser, passwordMatched: ', isUser, passwordMatched);
+              token = _ref2.token;
 
               if (isUser) {
                 if (passwordMatched) {
-                  //case when all ok. navigate to task main view which requires authentication
-                  props.history.push('/hooks');
+                  //case when all ok. navigate to task main view which requires authentication and pass token in localStorage
+                  setItem(token);
+                  props.history.push('/task/mainview');
                 } else {
                   actions.setErrors({
                     password: 'Password does not match'
@@ -64599,11 +64664,11 @@ var TaskLogin = function TaskLogin(props) {
     };
   }();
 
-  return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+  return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
     className: "app d-flex justify-content-center align-items-center"
-  }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["Card"], {
+  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["Card"], {
     className: "loginCard"
-  }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["CardTitle"], null, "Welcome to Task App"), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Formik"], {
+  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["CardTitle"], null, "Welcome to Task App"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Formik"], {
     initialValues: {
       username: '',
       password: ''
@@ -64615,24 +64680,24 @@ var TaskLogin = function TaskLogin(props) {
     component: function component(_ref3) {
       var isValid = _ref3.isValid,
           isSubmitting = _ref3.isSubmitting;
-      return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Form"], null, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Field"], {
-        component: _PgInput__WEBPACK_IMPORTED_MODULE_5__["default"],
+      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Form"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Field"], {
+        component: _PgInput__WEBPACK_IMPORTED_MODULE_9__["default"],
         name: "username",
         className: "mt-1",
         type: "text",
         placeholder: "user name"
-      }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_7__["Field"], {
-        component: _PgInput__WEBPACK_IMPORTED_MODULE_5__["default"],
+      }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Field"], {
+        component: _PgInput__WEBPACK_IMPORTED_MODULE_9__["default"],
         name: "password",
         className: "mt-1",
         type: "password",
         placeholder: "password"
-      }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
         className: "d-flex flex-row justify-content-between mt-2"
-      }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_6__["Button"], {
+      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["Button"], {
         disabled: !isValid || isSubmitting,
         color: "primary"
-      }, "log in"), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+      }, "log in"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__["Link"], {
         className: "align-self-end",
         to: "/task/register"
       }, "register")));
@@ -64640,7 +64705,145 @@ var TaskLogin = function TaskLogin(props) {
   }))));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(TaskLogin));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_8__["withRouter"])(TaskLogin));
+
+/***/ }),
+
+/***/ "./src/component/TaskMainView.js":
+/*!***************************************!*\
+  !*** ./src/component/TaskMainView.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.promise */ "./node_modules/core-js/modules/es6.promise.js");
+/* harmony import */ var core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.object.to-string */ "./node_modules/core-js/modules/es6.object.to-string.js");
+/* harmony import */ var core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_object_to_string__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es7_symbol_async_iterator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es7.symbol.async-iterator */ "./node_modules/core-js/modules/es7.symbol.async-iterator.js");
+/* harmony import */ var core_js_modules_es7_symbol_async_iterator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es7_symbol_async_iterator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es6_symbol__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es6.symbol */ "./node_modules/core-js/modules/es6.symbol.js");
+/* harmony import */ var core_js_modules_es6_symbol__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_symbol__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_use_localstorage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-use-localstorage */ "./node_modules/react-use-localstorage/dist/react-use-localstorage.esm.js");
+/* harmony import */ var _PgInput__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./PgInput */ "./src/component/PgInput.js");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/index.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! yup */ "./node_modules/yup/lib/index.js");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(yup__WEBPACK_IMPORTED_MODULE_12__);
+
+
+
+
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+ // import { postXhr } from '../common/utils';
+
+
+var TaskSchema = yup__WEBPACK_IMPORTED_MODULE_12__["object"]().shape({
+  name: yup__WEBPACK_IMPORTED_MODULE_12__["string"]().min(2, 'User name is too short').max(50, 'User name is too long').required('Name of the task is required')
+});
+
+var TaskMainView = function TaskMainView(props) {
+  var _useLocalStorage = Object(react_use_localstorage__WEBPACK_IMPORTED_MODULE_8__["default"])('token'),
+      _useLocalStorage2 = _slicedToArray(_useLocalStorage, 1),
+      item = _useLocalStorage2[0];
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_6__["useState"])('visible'),
+      _useState2 = _slicedToArray(_useState, 2),
+      isVisibleAddForm = _useState2[0],
+      setAddFormVisibility = _useState2[1];
+
+  var handleSubmit =
+  /*#__PURE__*/
+  function () {
+    var _ref = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee(values, actions) {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              setAddFormVisibility('invisible');
+              console.log('values, actions: ', values, actions);
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function handleSubmit(_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["Card"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Formik"], {
+    initialValues: {
+      name: ''
+    },
+    validationSchema: TaskSchema,
+    onSubmit: handleSubmit,
+    component: function component(_ref2) {
+      var isValid = _ref2.isValid,
+          isSubmitting = _ref2.isSubmitting;
+      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Form"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
+        className: "d-flex flex-row"
+      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["Button"], {
+        disabled: !isValid || isSubmitting,
+        color: "primary"
+      }, "Add"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
+        className: "d-flex flex-row ".concat(isVisibleAddForm)
+      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Field"], {
+        component: _PgInput__WEBPACK_IMPORTED_MODULE_9__["default"],
+        name: "name",
+        className: "mx-2",
+        type: "text",
+        placeholder: "task name"
+      }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
+        className: "position-relative statusContainer"
+      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Field"], {
+        component: _PgInput__WEBPACK_IMPORTED_MODULE_9__["default"],
+        name: "status",
+        type: "checkbox",
+        id: "_taskstatus"
+      }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["Label"], {
+        className: "position-relative statusLabel",
+        for: "_taskstatus"
+      }, "completed")))));
+    }
+  }))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["withRouter"])(TaskMainView));
 
 /***/ }),
 
@@ -64735,12 +64938,7 @@ var TaskRegister = function TaskRegister() {
               if (userRegistered) {
                 actions.setStatus({
                   msg: "Dear ".concat(values.username, ", you signed up successfully.")
-                }); // if (passwordMatched) {
-                //     //case when all ok. navigate to task main view which requires authentication
-                //     props.history.push('/hooks');
-                // } else {
-                //     actions.setErrors({ password: 'Password does not match' });
-                // }
+                });
               } else {
                 errorObj = {};
                 statusList.forEach(function (_ref3) {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useLocalStorage from 'react-use-localstorage';
 import { Link, withRouter } from 'react-router-dom';
 import PgInput from './PgInput';
 import { Card, CardBody, CardTitle, Button } from 'reactstrap';
@@ -19,6 +20,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 const TaskLogin = (props) => {
+    const [, setItem] = useLocalStorage('token', '');
     // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
     // useEffect(() => {
     //     fetch('./test')
@@ -33,13 +35,12 @@ const TaskLogin = (props) => {
     //     setCounter(newValue);
     // };
     const handleSubmit = async (values, actions) => {
-        // console.log('values, actions: ', values, actions);
-        const { isUser, passwordMatched } = await postXhr('/task/login', values);
-        console.log('isUser, passwordMatched: ', isUser, passwordMatched);
+        const { isUser, passwordMatched, token } = await postXhr('/task/login', values);
         if (isUser) {
             if (passwordMatched) {
-                //case when all ok. navigate to task main view which requires authentication
-                props.history.push('/hooks');
+                //case when all ok. navigate to task main view which requires authentication and pass token in localStorage
+                setItem(token);
+                props.history.push('/task/mainview');
             } else {
                 actions.setErrors({ password: 'Password does not match' });
             }
