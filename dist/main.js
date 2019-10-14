@@ -3362,7 +3362,7 @@ exports.push([module.i, "/*!\n * Bootstrap v4.3.1 (https://getbootstrap.com/)\n 
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "html, body {\n    height: 100%;\n  }\n.app {\n    height: 100%;\n}\n.loginCard {\n    width: 300px;\n    height: 450px;\n}\n.statusContainer {\n    top: 7px;\n    margin-left: 45px;\n}\n.statusLabel {\n    top: -2px;\n}", ""]);
+exports.push([module.i, "html, body {\n    height: 100%;\n    background-color: rgb(211, 211, 211);\n  }\n.dark {\n    background-color: rgb(211, 211, 211);\n  }\n.app {\n    height: 100%;\n}\n.loginCard {\n    width: 300px;\n    height: 450px;\n}\n.statusContainer {\n    top: 7px;\n    margin: 0px 45px 0px 45px;\n}\n.statusLabel {\n    top: -2px;\n}", ""]);
 
 
 /***/ }),
@@ -64773,12 +64773,8 @@ var TaskSchema = yup__WEBPACK_IMPORTED_MODULE_12__["object"]().shape({
 var TaskMainView = function TaskMainView(props) {
   var _useLocalStorage = Object(react_use_localstorage__WEBPACK_IMPORTED_MODULE_8__["default"])('token'),
       _useLocalStorage2 = _slicedToArray(_useLocalStorage, 1),
-      item = _useLocalStorage2[0];
+      item = _useLocalStorage2[0]; // const [isVisibleAddForm, setAddFormVisibility] = useState('invisible');
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_6__["useState"])('visible'),
-      _useState2 = _slicedToArray(_useState, 2),
-      isVisibleAddForm = _useState2[0],
-      setAddFormVisibility = _useState2[1];
 
   var handleSubmit =
   /*#__PURE__*/
@@ -64790,8 +64786,12 @@ var TaskMainView = function TaskMainView(props) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              setAddFormVisibility('invisible');
+              // setAddFormVisibility('invisible');
               console.log('values, actions: ', values, actions);
+              window.setTimeout(function () {
+                actions.setSubmitting(false);
+                actions.resetForm();
+              }, 1000);
 
             case 2:
             case "end":
@@ -64806,9 +64806,14 @@ var TaskMainView = function TaskMainView(props) {
     };
   }();
 
-  return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["Card"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Formik"], {
+  return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["Card"], {
+    className: "dark"
+  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["Button"], {
+    color: "secondary"
+  }, "Refresh")), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Formik"], {
     initialValues: {
-      name: ''
+      name: '',
+      status: false
     },
     validationSchema: TaskSchema,
     onSubmit: handleSubmit,
@@ -64817,15 +64822,10 @@ var TaskMainView = function TaskMainView(props) {
           isSubmitting = _ref2.isSubmitting;
       return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Form"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
         className: "d-flex flex-row"
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["Button"], {
-        disabled: !isValid || isSubmitting,
-        color: "primary"
-      }, "Add"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
-        className: "d-flex flex-row ".concat(isVisibleAddForm)
       }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_11__["Field"], {
         component: _PgInput__WEBPACK_IMPORTED_MODULE_9__["default"],
         name: "name",
-        className: "mx-2",
+        className: "mr-2",
         type: "text",
         placeholder: "task name"
       }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
@@ -64838,9 +64838,15 @@ var TaskMainView = function TaskMainView(props) {
       }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["Label"], {
         className: "position-relative statusLabel",
         for: "_taskstatus"
-      }, "completed")))));
+      }, "completed")), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["Button"], {
+        disabled: !isValid || isSubmitting,
+        color: "secondary"
+      }, "Add")));
     }
-  }))));
+  })), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["Table"], {
+    striped: true,
+    dark: true
+  }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", null, "Name"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", null, "Created"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("th", null, "Actions"))), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("td", null, "Buy screws"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("td", null, "14.10.2019 09:15"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("td", null, "not completed"), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("td", null, "edit delete change status")))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["withRouter"])(TaskMainView));
