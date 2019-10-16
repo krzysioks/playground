@@ -66,7 +66,7 @@ const TaskLogin = (props) => {
                                 {/* PgInput wraps reactstrap form input component and add error msg placeholder so it is possible to use material design components with Formik */}
                                 <Field component={PgInput} name="password" className="mt-1" type="password" placeholder="password" />
                                 <div className="d-flex flex-row justify-content-between mt-2">
-                                    <Button disabled={!isValid || isSubmitting} color="primary">log in</Button>
+                                    <Button disabled={!isValid || isSubmitting} color="secondary">log in</Button>
                                     <Link className="align-self-end" to="/task/register">register</Link>
                                 </div>
                             </Form>

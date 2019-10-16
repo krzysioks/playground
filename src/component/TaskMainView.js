@@ -4,7 +4,7 @@ import useLocalStorage from 'react-use-localstorage';
 import PgInput from './PgInput';
 import { Card, CardBody, Button, Label, Table } from 'reactstrap';
 import { Formik, Field, Form } from 'formik';
-// import { postXhr } from '../common/utils';
+import { getXhr } from '../common/utils';
 import * as Yup from 'yup';
 
 const TaskSchema = Yup.object().shape({
@@ -15,16 +15,28 @@ const TaskSchema = Yup.object().shape({
 });
 
 const TaskMainView = props => {
-    const [item] = useLocalStorage('token');
-    // const [isVisibleAddForm, setAddFormVisibility] = useState('invisible');
+    const [token] = useLocalStorage('token');
+    const [taskList, setTaskList] = useState([]);
+
+    // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
+    useEffect(() => {
+        (async () => {
+            try {
+                const { tasks } = await getXhr(`/task/all`, {
+                    'x-auth': token
+                });
+                console.log('result: ', tasks);
+                setTaskList(tasks);
+            } catch (err) {
+                console.info('test');
+                props.history.push('/task/unauthorized');
+            }
+        })();
+    }, []);
 
     const handleSubmit = async (values, actions) => {
-        // setAddFormVisibility('invisible');
-        console.log('values, actions: ', values, actions);
-        window.setTimeout(() => {
-            actions.setSubmitting(false);
-            actions.resetForm();
-        }, 1000);
+        actions.setSubmitting(false);
+        actions.resetForm();
     };
 
     return (
@@ -63,12 +75,14 @@ const TaskMainView = props => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Buy screws</td>
-                                <td>14.10.2019 09:15</td>
-                                <td>not completed</td>
-                                <td>edit delete change status</td>
-                            </tr>
+                            {taskList.length ? taskList.map(({ name, status, creationDate }, key) => (
+                                <tr key={key}>
+                                    <td>{name}</td>
+                                    <td>{new Date(creationDate).toLocaleDateString('pl-PL', { hour: '2-digit', minute: '2-digit' })}</td>
+                                    <td>{status ? 'Completed' : 'Not Completed'}</td>
+                                    <td>edit delete status</td>
+                                </tr>
+                            )) : (<tr><td colSpan='4'>No data to display</td></tr>)}
                         </tbody>
                     </Table>
 
@@ -78,3 +92,4 @@ const TaskMainView = props => {
     );
 }
 export default withRouter(TaskMainView);
+

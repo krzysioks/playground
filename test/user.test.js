@@ -109,7 +109,7 @@ beforeEach(async () => {
     await new UserModel(correctUser).save();
 });
 
-describe('Checking if all props of User model are correctly validated against schema and route return propper response to frontend', () => {
+describe('Checking if all props of User model are correctly validated against schema and register route return propper response to frontend', () => {
     // test user name
     test('Should not sign up user without username', async () => {
         await testUserSchemaOnSignUp('username', 'required', noUsernameUser);

@@ -11,6 +11,24 @@ export async function postXhr(url, content = {}) {
     return parseJSON(statusResponse);
 }
 
+export async function getXhr(url, header) {
+    let headerObj = {
+        'Content-Type': 'application/json'
+    };
+
+    if (Object.keys(header)) {
+        headerObj = Object.assign(headerObj, header);
+    }
+
+    const fetchResponse = await fetch(url, {
+        credentials: 'include',
+        method: 'GET',
+        headers: new Headers(headerObj)
+    });
+    const statusResponse = checkStatus(fetchResponse);
+    return parseJSON(statusResponse);
+}
+
 function parseJSON(response) {
     return response.json();
 }

@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "start": "node server/server.js",
-        "test": "env-cmd -f ./server/config/test.env jest",
-        "test:watch": "env-cmd -f ./server/config/test.env jest --watch",
+        "test": "env-cmd -f ./server/config/test.env jest --runInBand",
+        "test:watch": "env-cmd -f ./server/config/test.env jest --watch --runInBand",
         "build": "webpack --env.prod",
         "build:dev": "webpack --env.dev",
         "build:watch": "webpack -w --env.dev",

@@ -1,10 +1,11 @@
 const express = require('express');
-//UserModel defines how the document (i.e. record) in database looks like (from what props consist of (i.e. columns)). 
+//UserModel,TaskModel defines how the document (i.e. record) in database looks like (from what props consist of (i.e. columns)). 
 const UserModel = require('../models/user.js');
+const TaskModel = require('../models/task.js');
 const _ = require('lodash');
 const { errorMapper } = require('../config/genericErrorMap')
 const taskRouter = new express.Router();
-// const auth = require('../middleware/auth');
+const auth = require('../middleware/auth');
 
 taskRouter.post('/task/login', async (req, res) => {
     const { username, password } = _.pick(req.body, ['username', 'password']);
@@ -57,6 +58,11 @@ taskRouter.post('/task/register', async (req, res) => {
 
         res.status(200).send({ userRegistered: false, statusList });
     }
+});
+
+taskRouter.get('/task/all', auth, async (req, res) => {
+    const tasks = await TaskModel.find({ taskOwnerId: req.user._id });
+    res.status(200).send({ tasks });
 });
 
 module.exports = taskRouter;

@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const publicPath = path.join(__dirname, '../dist');
 //UserModel defines how the document (i.e. record) in database looks like (from what props consist of (i.e. columns)). 
 const UserModel = require('./models/user.js');
+
 //import db/mongoose.js to connect to database
 const { mongoose } = require('./db/mongoose.js');
 //REST API routes

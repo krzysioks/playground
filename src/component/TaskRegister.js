@@ -66,7 +66,7 @@ const TaskRegister = () => {
                                 </div>
                                 ) : ''}
                                 <div className="d-flex flex-row justify-content-between mt-2">
-                                    <Button type="submit" disabled={!isValid || isSubmitting} color="primary">sign up</Button>
+                                    <Button type="submit" disabled={!isValid || isSubmitting} color="secondary">sign up</Button>
                                     <Link className="align-self-end" to="/task/login">cancel</Link>
                                 </div>
                             </Form>
