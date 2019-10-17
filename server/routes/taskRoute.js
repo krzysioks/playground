@@ -60,6 +60,26 @@ taskRouter.post('/task/register', async (req, res) => {
     }
 });
 
+taskRouter.post('/task/add', auth, async (req, res) => {
+    const { name, status } = _.pick(req.body, ['name', 'status']);
+    const task = new TaskModel({
+        name,
+        status,
+        creationDate: new Date().getTime(),
+        taskOwnerId: req.user._id
+    });
+    try {
+        await task.save();
+        res.status(200).send({ taskAdded: true });
+    } catch (err) {
+        console.info('----------------', err.errors);
+        res.status(200).send({ taskAdded: false });
+    }
+
+    // const tasks = await TaskModel.find({ taskOwnerId: req.user._id });
+    // res.status(200).send({ tasks });
+});
+
 taskRouter.get('/task/all', auth, async (req, res) => {
     const tasks = await TaskModel.find({ taskOwnerId: req.user._id });
     res.status(200).send({ tasks });

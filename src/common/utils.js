@@ -1,10 +1,17 @@
-export async function postXhr(url, content = {}) {
+export async function postXhr(url, content = {}, header) {
+    console.log('header: ', header);
+    let headerObj = {
+        'Content-Type': 'application/json'
+    };
+
+    if (Object.keys(header)) {
+        headerObj = Object.assign(headerObj, header);
+    }
+    console.log('headerObj: ', headerObj)
     const fetchResponse = await fetch(url, {
         method: 'POST',
         credentials: 'include',
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
+        headers: new Headers(headerObj),
         body: JSON.stringify(content)
     });
     const statusResponse = checkStatus(fetchResponse);
