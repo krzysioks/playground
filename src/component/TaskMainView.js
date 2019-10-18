@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import useLocalStorage from 'react-use-localstorage';
 import PgInput from './PgInput';
-import { Card, CardBody, Button, Label, Table } from 'reactstrap';
+import { Card, CardBody, Button, Label, Table, Input, FormFeedback } from 'reactstrap';
 import { Formik, Field, Form } from 'formik';
 import { getXhr, postXhr } from '../common/utils';
 import * as Yup from 'yup';
@@ -17,6 +17,7 @@ const TaskSchema = Yup.object().shape({
 const TaskMainView = props => {
     const [token] = useLocalStorage('token');
     const [taskList, setTaskList] = useState([]);
+    const [isAuthorized, setIsAuthorized] = useState(false);
 
     // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
     useEffect(() => {
@@ -24,31 +25,45 @@ const TaskMainView = props => {
     }, []);
 
     const handleSubmit = async (values, actions) => {
-        const { taskAdded } = await postXhr('/task/add', values, {
-            'x-auth': token
-        });
-        if (taskAdded) {
-            actions.resetForm();
-            actions.setStatus({ msg: 'Task added' });
-            getTaskList();
-        } else {
-            console.log('error');
-        }
-        actions.setSubmitting(false);
-    };
-
-    const getTaskList = async () => {
         try {
-            const { tasks } = await getXhr(`/task/all`, {
+            const { taskAdded, statusList } = await postXhr('/task/add', values, {
                 'x-auth': token
             });
-            setTaskList(tasks);
+            if (taskAdded) {
+                actions.resetForm();
+                actions.setStatus({ msg: 'Task added' });
+                await getTaskList();
+                window.setTimeout(() => {
+                    actions.setStatus({ msg: '' });
+                }, 5000);
+            } else {
+                const errorObj = {};
+                statusList.forEach(([key, , msg]) => {
+                    errorObj[key] = msg;
+                });
+                actions.setErrors(errorObj);
+            }
+            actions.setSubmitting(false);
         } catch (err) {
+            setIsAuthorized(false);
             props.history.push('/task/unauthorized');
         }
     };
 
-    return taskList.length ? (<div>
+    const getTaskList = async () => {
+        try {
+            const { tasks } = await getXhr('/task/all', {
+                'x-auth': token
+            });
+            setTaskList(tasks);
+            setIsAuthorized(true);
+        } catch (err) {
+            setIsAuthorized(false);
+            props.history.push('/task/unauthorized');
+        }
+    };
+
+    return isAuthorized ? (<div>
         <Card className="dark">
             <CardBody>
                 <Button onClick={getTaskList} color="secondary">Refresh</Button>
@@ -58,7 +73,8 @@ const TaskMainView = props => {
                     initialValues={{ name: '', status: false }}
                     validationSchema={TaskSchema}
                     onSubmit={handleSubmit}
-                    component={({ isValid, isSubmitting }) => (
+                    enableReinitialize={true}
+                    component={({ isValid, isSubmitting, status }) => (
                         < Form >
                             <div className="d-flex flex-row">
                                 <Field component={PgInput} name="name" className="mr-2" type="text" placeholder="task name" />
@@ -68,6 +84,11 @@ const TaskMainView = props => {
                                 </div>
                                 <Button disabled={!isValid || isSubmitting} color="secondary">Add</Button>
                             </div>
+                            {status && status.msg ? (<div>
+                                <Input type="hidden" valid />
+                                <FormFeedback valid>{status.msg}</FormFeedback>
+                            </div>
+                            ) : ''}
                         </Form>
                     )}
                 />

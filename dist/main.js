@@ -64822,8 +64822,7 @@ function _postXhr() {
         switch (_context.prev = _context.next) {
           case 0:
             content = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
-            header = _args.length > 2 ? _args[2] : undefined;
-            console.log('header: ', header);
+            header = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
             headerObj = {
               'Content-Type': 'application/json'
             };
@@ -64832,8 +64831,7 @@ function _postXhr() {
               headerObj = Object.assign(headerObj, header);
             }
 
-            console.log('headerObj: ', headerObj);
-            _context.next = 8;
+            _context.next = 6;
             return fetch(url, {
               method: 'POST',
               credentials: 'include',
@@ -64841,12 +64839,12 @@ function _postXhr() {
               body: JSON.stringify(content)
             });
 
-          case 8:
+          case 6:
             fetchResponse = _context.sent;
             statusResponse = checkStatus(fetchResponse);
             return _context.abrupt("return", parseJSON(statusResponse));
 
-          case 11:
+          case 9:
           case "end":
             return _context.stop();
         }
@@ -64856,19 +64854,24 @@ function _postXhr() {
   return _postXhr.apply(this, arguments);
 }
 
-function getXhr(_x2, _x3) {
+function getXhr(_x2) {
   return _getXhr.apply(this, arguments);
 }
 
 function _getXhr() {
   _getXhr = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee2(url, header) {
-    var headerObj, fetchResponse, statusResponse;
+  regeneratorRuntime.mark(function _callee2(url) {
+    var header,
+        headerObj,
+        fetchResponse,
+        statusResponse,
+        _args2 = arguments;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
+            header = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
             headerObj = {
               'Content-Type': 'application/json'
             };
@@ -64877,19 +64880,19 @@ function _getXhr() {
               headerObj = Object.assign(headerObj, header);
             }
 
-            _context2.next = 4;
+            _context2.next = 5;
             return fetch(url, {
               credentials: 'include',
               method: 'GET',
               headers: new Headers(headerObj)
             });
 
-          case 4:
+          case 5:
             fetchResponse = _context2.sent;
             statusResponse = checkStatus(fetchResponse);
             return _context2.abrupt("return", parseJSON(statusResponse));
 
-          case 7:
+          case 8:
           case "end":
             return _context2.stop();
         }
@@ -65285,7 +65288,12 @@ var TaskMainView = function TaskMainView(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_7__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
       taskList = _useState2[0],
-      setTaskList = _useState2[1]; // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
+      setTaskList = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_7__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      isAuthorized = _useState4[0],
+      setIsAuthorized = _useState4[1]; // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
 
 
   Object(react__WEBPACK_IMPORTED_MODULE_7__["useEffect"])(function () {
@@ -65298,39 +65306,72 @@ var TaskMainView = function TaskMainView(props) {
     var _ref = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee(values, actions) {
-      var _ref2, taskAdded;
+      var _ref2, taskAdded, statusList, errorObj;
 
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              _context.prev = 0;
+              _context.next = 3;
               return Object(_common_utils__WEBPACK_IMPORTED_MODULE_13__["postXhr"])('/task/add', values, {
                 'x-auth': token
               });
 
-            case 2:
+            case 3:
               _ref2 = _context.sent;
               taskAdded = _ref2.taskAdded;
+              statusList = _ref2.statusList;
 
-              if (taskAdded) {
-                actions.resetForm();
-                actions.setStatus({
-                  msg: 'Task added'
-                });
-                getTaskList();
-              } else {
-                console.log('error');
+              if (!taskAdded) {
+                _context.next = 14;
+                break;
               }
 
-              actions.setSubmitting(false);
+              actions.resetForm();
+              actions.setStatus({
+                msg: 'Task added'
+              });
+              _context.next = 11;
+              return getTaskList();
 
-            case 6:
+            case 11:
+              window.setTimeout(function () {
+                actions.setStatus({
+                  msg: ''
+                });
+              }, 5000);
+              _context.next = 17;
+              break;
+
+            case 14:
+              errorObj = {};
+              statusList.forEach(function (_ref3) {
+                var _ref4 = _slicedToArray(_ref3, 3),
+                    key = _ref4[0],
+                    msg = _ref4[2];
+
+                errorObj[key] = msg;
+              });
+              actions.setErrors(errorObj);
+
+            case 17:
+              actions.setSubmitting(false);
+              _context.next = 24;
+              break;
+
+            case 20:
+              _context.prev = 20;
+              _context.t0 = _context["catch"](0);
+              setIsAuthorized(false);
+              props.history.push('/task/unauthorized');
+
+            case 24:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee);
+      }, _callee, null, [[0, 20]]);
     }));
 
     return function handleSubmit(_x, _x2) {
@@ -65341,10 +65382,10 @@ var TaskMainView = function TaskMainView(props) {
   var getTaskList =
   /*#__PURE__*/
   function () {
-    var _ref3 = _asyncToGenerator(
+    var _ref5 = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee2() {
-      var _ref4, tasks;
+      var _ref6, tasks;
 
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
@@ -65352,36 +65393,38 @@ var TaskMainView = function TaskMainView(props) {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_13__["getXhr"])("/task/all", {
+              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_13__["getXhr"])('/task/all', {
                 'x-auth': token
               });
 
             case 3:
-              _ref4 = _context2.sent;
-              tasks = _ref4.tasks;
+              _ref6 = _context2.sent;
+              tasks = _ref6.tasks;
               setTaskList(tasks);
-              _context2.next = 11;
+              setIsAuthorized(true);
+              _context2.next = 13;
               break;
 
-            case 8:
-              _context2.prev = 8;
+            case 9:
+              _context2.prev = 9;
               _context2.t0 = _context2["catch"](0);
+              setIsAuthorized(false);
               props.history.push('/task/unauthorized');
 
-            case 11:
+            case 13:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 8]]);
+      }, _callee2, null, [[0, 9]]);
     }));
 
     return function getTaskList() {
-      return _ref3.apply(this, arguments);
+      return _ref5.apply(this, arguments);
     };
   }();
 
-  return taskList.length ? react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_11__["Card"], {
+  return isAuthorized ? react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_11__["Card"], {
     className: "dark"
   }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_11__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_11__["Button"], {
     onClick: getTaskList,
@@ -65393,9 +65436,11 @@ var TaskMainView = function TaskMainView(props) {
     },
     validationSchema: TaskSchema,
     onSubmit: handleSubmit,
-    component: function component(_ref5) {
-      var isValid = _ref5.isValid,
-          isSubmitting = _ref5.isSubmitting;
+    enableReinitialize: true,
+    component: function component(_ref7) {
+      var isValid = _ref7.isValid,
+          isSubmitting = _ref7.isSubmitting,
+          status = _ref7.status;
       return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_12__["Form"], null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
         className: "d-flex flex-row"
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_12__["Field"], {
@@ -65417,15 +65462,20 @@ var TaskMainView = function TaskMainView(props) {
       }, "completed")), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_11__["Button"], {
         disabled: !isValid || isSubmitting,
         color: "secondary"
-      }, "Add")));
+      }, "Add")), status && status.msg ? react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_11__["Input"], {
+        type: "hidden",
+        valid: true
+      }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_11__["FormFeedback"], {
+        valid: true
+      }, status.msg)) : '');
     }
   })), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_11__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_11__["Table"], {
     striped: true,
     dark: true
-  }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("th", null, "Name"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("th", null, "Created"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("th", null, "Actions"))), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("tbody", null, taskList.length ? taskList.map(function (_ref6, key) {
-    var name = _ref6.name,
-        status = _ref6.status,
-        creationDate = _ref6.creationDate;
+  }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("th", null, "Name"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("th", null, "Created"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("th", null, "Actions"))), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("tbody", null, taskList.length ? taskList.map(function (_ref8, key) {
+    var name = _ref8.name,
+        status = _ref8.status,
+        creationDate = _ref8.creationDate;
     return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("tr", {
       key: key
     }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("td", null, name), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("td", null, new Date(creationDate).toLocaleDateString('pl-PL', {

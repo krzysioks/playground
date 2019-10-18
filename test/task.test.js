@@ -39,6 +39,40 @@ const taskList = [
     }
 ];
 
+const correctTask = {
+    name: 'Pay for the goodies',
+    creationDate: new Date().getTime(),
+    status: false,
+    taskOwnerId: correctUserId
+};
+const noNameTask = {
+    creationDate: new Date().getTime(),
+    status: false,
+    taskOwnerId: correctUserId
+};
+const tooShortNameTask = {
+    name: 't',
+    creationDate: new Date().getTime(),
+    status: false,
+    taskOwnerId: correctUserId
+};
+const tooLongNameTask = {
+    name: 'Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test ',
+    creationDate: new Date().getTime(),
+    status: false,
+    taskOwnerId: correctUserId
+};
+const noStatusTask = {
+    name: 'Turn off TV',
+    creationDate: new Date().getTime(),
+    taskOwnerId: correctUserId
+};
+const moreThanOneErrorTask = {
+    name: 'T',
+    creationDate: new Date().getTime(),
+    taskOwnerId: correctUserId
+};
+
 // before any test tear down clear database
 beforeEach(async () => {
     await UserModel.deleteMany();
@@ -61,5 +95,45 @@ describe('Checking authorization middleware (auth.js)', () => {
     test('Should not authorize user with incorrect or no longer in db (user logged out earlier) tokens', async () => {
         const token = jwt.sign({ _id: '12fge322' }, process.env.JWT_SECRET);
         await request(app).get('/task/all').set({ 'x-auth': token }).send().expect(401);
+    });
+});
+
+const testTaskSchemaOnAddingTask = async (propToTest, kind, task) => {
+    const { body } = await request(app).post('/task/add').set({ 'x-auth': token })
+        .send(task).expect(200);
+    expect(body.taskAdded).toBeFalsy();
+    expect(body.statusList).toHaveLength(1);
+    expect(body.statusList[0][0]).toEqual(propToTest);
+    expect(body.statusList[0][1]).toEqual(kind);
+};
+
+
+describe('Checking adding new task route', () => {
+    test('Should add correct task', async () => {
+        const { body } = await request(app).post('/task/add').set({ 'x-auth': token })
+            .send(correctTask).expect(200);
+        expect(body.taskAdded).toBeTruthy();
+    });
+    test('Should not add new task if name not provided', async () => {
+        await testTaskSchemaOnAddingTask('name', 'required', noNameTask);
+    });
+    test('Should not add new task if name is too short', async () => {
+        await testTaskSchemaOnAddingTask('name', 'minlength', tooShortNameTask);
+    });
+    test('Should not add new task if name is too long', async () => {
+        await testTaskSchemaOnAddingTask('name', 'maxlength', tooLongNameTask);
+    });
+    test('Should not add new task if status not provided', async () => {
+        await testTaskSchemaOnAddingTask('status', 'required', noStatusTask);
+    });
+    test('Should not add new task with multiple errors', async () => {
+        const { body } = await request(app).post('/task/add').set({ 'x-auth': token })
+            .send(moreThanOneErrorTask).expect(200);
+        expect(body.taskAdded).toBeFalsy();
+        expect(body.statusList).toHaveLength(2);
+        expect(body.statusList[0][0]).toEqual('name');
+        expect(body.statusList[0][1]).toEqual('minlength');
+        expect(body.statusList[1][0]).toEqual('status');
+        expect(body.statusList[1][1]).toEqual('required');
     });
 });

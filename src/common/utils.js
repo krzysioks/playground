@@ -1,5 +1,4 @@
-export async function postXhr(url, content = {}, header) {
-    console.log('header: ', header);
+export async function postXhr(url, content = {}, header = {}) {
     let headerObj = {
         'Content-Type': 'application/json'
     };
@@ -7,7 +6,7 @@ export async function postXhr(url, content = {}, header) {
     if (Object.keys(header)) {
         headerObj = Object.assign(headerObj, header);
     }
-    console.log('headerObj: ', headerObj)
+
     const fetchResponse = await fetch(url, {
         method: 'POST',
         credentials: 'include',
@@ -18,7 +17,7 @@ export async function postXhr(url, content = {}, header) {
     return parseJSON(statusResponse);
 }
 
-export async function getXhr(url, header) {
+export async function getXhr(url, header = {}) {
     let headerObj = {
         'Content-Type': 'application/json'
     };
