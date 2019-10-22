@@ -19,3 +19,6 @@ html, body {
 .statusLabel {
     top: -2px;
 }
+.pointer {
+    cursor: pointer;
+}

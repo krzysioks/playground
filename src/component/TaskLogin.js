@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import useLocalStorage from 'react-use-localstorage';
 import { Link, withRouter } from 'react-router-dom';
 import PgInput from './PgInput';
@@ -48,7 +48,7 @@ const TaskLogin = (props) => {
             actions.setErrors({ username: 'User does not exist' });
         }
         actions.setSubmitting(false);
-    }
+    };
 
     return (
         <div className="app d-flex justify-content-center align-items-center">
@@ -63,7 +63,8 @@ const TaskLogin = (props) => {
                         component={({ isValid, isSubmitting }) => (
                             < Form >
                                 <Field component={PgInput} name="username" className="mt-1" type="text" placeholder="user name" />
-                                {/* PgInput wraps reactstrap form input component and add error msg placeholder so it is possible to use material design components with Formik */}
+                                {/* PgInput wraps reactstrap form input component and add error msg
+                                 placeholder so it is possible to use material design components with Formik */}
                                 <Field component={PgInput} name="password" className="mt-1" type="password" placeholder="password" />
                                 <div className="d-flex flex-row justify-content-between mt-2">
                                     <Button disabled={!isValid || isSubmitting} color="secondary">log in</Button>
@@ -76,5 +77,5 @@ const TaskLogin = (props) => {
             </Card>
         </div >
     );
-}
+};
 export default withRouter(TaskLogin);

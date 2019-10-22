@@ -5,7 +5,6 @@ const UserModel = require('../models/user.js');
 
 const auth = async (req, res, next) => {
     try {
-        //TODO test what happens if header x-auth does not exists
         //get token from request's header
         const token = req.header('x-auth');
         //use jwt.verify with provided secret to parse token and be able to retrieved data stored there (i.e.: _id of the user). 
@@ -17,7 +16,6 @@ const auth = async (req, res, next) => {
             throw new Error();
         }
 
-        req.user = user;
         next();
     } catch (err) {
         res.status(401).send({ error: 'NOT_PRIVILEGED' });

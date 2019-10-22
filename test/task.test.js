@@ -81,7 +81,7 @@ beforeEach(async () => {
 
     taskList.forEach(async task => {
         await new TaskModel(task).save();
-    })
+    });
 });
 
 describe('Checking authorization middleware (auth.js)', () => {
@@ -135,5 +135,69 @@ describe('Checking adding new task route', () => {
         expect(body.statusList[0][1]).toEqual('minlength');
         expect(body.statusList[1][0]).toEqual('status');
         expect(body.statusList[1][1]).toEqual('required');
+    });
+});
+
+
+describe('Checking route of changing status of task', () => {
+    test('Should change status to completed', async () => {
+        await TaskModel.deleteMany();
+        const task = {
+            name: 'Change status test',
+            creationDate: new Date().getTime(),
+            status: false,
+            taskOwnerId: correctUserId
+        };
+        await new TaskModel(task).save();
+        const t = await TaskModel.findOne({
+            'name': 'Change status test'
+        });
+
+        await request(app).post('/task/edit').set({ 'x-auth': token })
+            .send({ _id: t._id, status: !task.status }).expect(200);
+        const afterUpdateTask = await TaskModel.findOne({
+            'name': 'Change status test'
+        });
+        expect(afterUpdateTask.status).toBeTruthy();
+    });
+    test('Should not change status to completed if provided task id is incorrect', async () => {
+        const { body } = await request(app).post('/task/edit').set({ 'x-auth': token })
+            .send({ _id: 'dwww545g', status: true }).expect(400);
+        expect(body.errorMessage).toEqual('Provided task id is not valid');
+    });
+});
+
+describe('Checking route of deleting task', () => {
+    test('Should delete task', async () => {
+        await TaskModel.deleteMany();
+        const task = {
+            name: 'Delete status test',
+            creationDate: new Date().getTime(),
+            status: true,
+            taskOwnerId: correctUserId
+        };
+        await new TaskModel(task).save();
+        const t = await TaskModel.findOne({
+            'name': task.name
+        });
+
+        await request(app).post('/task/delete').set({ 'x-auth': token })
+            .send({ _id: t._id }).expect(200);
+        const afterUpdateTask = await TaskModel.findOne({
+            'name': task.name
+        });
+        expect(afterUpdateTask).toBeNull();
+    });
+    test('Should not delete task if already does not exist in db ', async () => {
+        const { body } = await request(app).post('/task/delete').set({ 'x-auth': token })
+            .send({ _id: correctUserId }).expect(400);
+
+        expect(body.errorMessage).toEqual('Failed to remove task - already deleted');
+    });
+    test('Should not delete task if provided task id is incorrect', async () => {
+        const { body } = await request(app).post('/task/delete').set({ 'x-auth': token })
+            .send({ _id: 'efefwfe45476547' }).expect(400);
+
+        expect(body.errorMessage).toEqual('Provided task id is not valid');
     });
 });

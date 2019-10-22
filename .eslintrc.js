@@ -8,7 +8,7 @@ module.exports = {
         node: true
     },
     parser: 'babel-eslint',
-    extends: ['eslint:recommended', 'plugin:react/recommended'],
+    extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:jest/recommended'],
     rules: {
         'linebreak-style': 0,
         quotes: ['error', 'single'],
@@ -27,5 +27,13 @@ module.exports = {
                 ignoreRegExpLiterals: true
             }
         ]
+    },
+    settings: {
+        react: {
+            createClass: "createReactClass",
+            pragma: "React",
+            version: "detect",
+            flowVersion: "0.53"
+        }
     }
 };

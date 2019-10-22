@@ -5,6 +5,7 @@ const TaskModel = require('../models/task.js');
 const _ = require('lodash');
 const { handleError } = require('../common/utils.js');
 const taskRouter = new express.Router();
+const { ObjectID } = require('mongodb');
 const auth = require('../middleware/auth');
 
 taskRouter.post('/task/login', async (req, res) => {
@@ -42,11 +43,13 @@ taskRouter.post('/task/register', async (req, res) => {
 
 taskRouter.post('/task/add', auth, async (req, res) => {
     const { name, status } = _.pick(req.body, ['name', 'status']);
+    const token = req.header('x-auth');
+    const user = await UserModel.findUserByToken(token);
     const task = new TaskModel({
         name,
         status,
         creationDate: new Date().getTime(),
-        taskOwnerId: req.user._id
+        taskOwnerId: user._id
     });
     try {
         await task.save();
@@ -57,9 +60,67 @@ taskRouter.post('/task/add', auth, async (req, res) => {
     }
 });
 
+taskRouter.post('/task/edit', auth, async (req, res) => {
+    //prepare list of keys to update exept for _id
+    const keysToUpdate = Object.keys(req.body).filter(key => key !== '_id');
+    let updateObj = {};
+    keysToUpdate.forEach(key => {
+        updateObj[key] = req.body[key];
+    });
+
+    //if req.body._id is not valid -> return error
+    if (!ObjectID.isValid(req.body._id)) {
+        res.status(400).send({ errorMessage: 'Provided task id is not valid' });
+        return;
+    }
+    const token = req.header('x-auth');
+    const user = await UserModel.findUserByToken(token);
+    await TaskModel.findOneAndUpdate({ _id: req.body._id, taskOwnerId: user._id }, updateObj, {
+        useFindAndModify: false
+    });
+    res.status(200).send({});
+});
+
+taskRouter.post('/task/delete', auth, async (req, res) => {
+    //if req.body._id is not valid -> return error
+    if (!ObjectID.isValid(req.body._id)) {
+        res.status(400).send({ errorMessage: 'Provided task id is not valid' });
+        return;
+    }
+
+    try {
+        const result = await TaskModel.deleteOne({ _id: req.body._id });
+        if (!result.deletedCount) {
+            throw new Error();
+        }
+        res.status(200).send({});
+    } catch (error) {
+        res.status(400).send({ errorMessage: 'Failed to remove task - already deleted' });
+    }
+});
+
+taskRouter.post('/task/logout', auth, async (req, res) => {
+    const token = req.header('x-auth');
+
+    try {
+        const user = await UserModel.findUserByToken(token);
+        await user.removeToken(token);
+        res.status(200).send({});
+    } catch (error) {
+        res.status(400).send({});
+    }
+});
+
 taskRouter.get('/task/all', auth, async (req, res) => {
-    const tasks = await TaskModel.find({ taskOwnerId: req.user._id });
-    res.status(200).send({ tasks });
+    const token = req.header('x-auth');
+
+    try {
+        const user = await UserModel.findUserByToken(token);
+        const tasks = await TaskModel.find({ taskOwnerId: user._id });
+        res.status(200).send({ tasks });
+    } catch (error) {
+        res.status(200).send({ tasks: [] });
+    }
 });
 
 module.exports = taskRouter;

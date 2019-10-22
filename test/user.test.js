@@ -6,24 +6,31 @@ const mongoose = require('mongoose');
 
 // test data
 const correctUserId = new mongoose.Types.ObjectId();
+const correctUserId2 = new mongoose.Types.ObjectId();
+const correctUserToken = jwt.sign({ _id: correctUserId }, process.env.JWT_SECRET);
+const correctUserToken2 = jwt.sign({ _id: correctUserId2 }, process.env.JWT_SECRET);
+
 const correctUser = {
     _id: correctUserId,
     username: 'dave',
     email: 'dave.josen@gmail.com',
     password: 'Robstobs201#',
     tokens: [{
-        token: jwt.sign({ _id: correctUserId }, process.env.JWT_SECRET)
+        token: correctUserToken
+    },
+    {
+        token: correctUserToken2
     }]
 };
 
-const correctUserId2 = new mongoose.Types.ObjectId();
+
 const correctUser2 = {
     _id: correctUserId2,
     username: 'tom',
     email: 'tom.josen@gmail.com',
     password: 'Raaazobstobs201#',
     tokens: [{
-        token: jwt.sign({ _id: correctUserId2 }, process.env.JWT_SECRET)
+        token: correctUserToken2
     }]
 };
 
@@ -171,3 +178,11 @@ describe('Checking if all props of User model are correctly validated against sc
     });
 });
 
+describe('Checking logging out user', () => {
+    test('Should logout user', async () => {
+        await request(app).post('/task/logout').set({ 'x-auth': correctUserToken }).expect(200);
+        const user = await UserModel.findById(correctUserId);
+        //checking if user.tokens does not contains correctUserToken which should be removed by /task/logout route
+        expect(user.tokens.some(({ token }) => token === correctUserToken)).toBeFalsy();
+    });
+});

@@ -40,7 +40,6 @@ const TaskRegister = () => {
             });
         }
 
-
         actions.setSubmitting(false);
     }
 

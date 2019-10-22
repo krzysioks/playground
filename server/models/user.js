@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
-const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 
 const userSchema = mongoose.Schema({
@@ -47,7 +46,7 @@ userSchema.methods.generateAuthToken = async function () {
     this.save();
     return token;
 
-}
+};
 
 userSchema.statics.findByCredentials = async function (username, password) {
     const user = await this.findOne({ username });
@@ -59,10 +58,31 @@ userSchema.statics.findByCredentials = async function (username, password) {
     //comparing privided plain text password with hashed one stored in db
     const isPasswordMatched = await bcrypt.compare(password, user.password);
     if (!isPasswordMatched) {
-
         throw new Error(JSON.stringify({ isUser: true, passwordMatched: false }));
     }
     return user;
+};
+
+userSchema.statics.findUserByToken = async function (token) {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await UserModel.findOne({ _id, 'tokens.token': token });
+
+    if (!user) {
+        throw new Error();
+    }
+
+    return user;
+};
+
+userSchema.methods.removeToken = function (token) {
+    //$pull operator pulls out the object which match token and removes all its props
+    return this.updateOne({
+        $pull: {
+            tokens: {
+                token
+            }
+        }
+    });
 };
 
 //for given schema we can provide middleware which will be executed before (UserSchema.pre()) or after (UserSchema.post()) the event (in this case 'run middleaware before saving user to db')

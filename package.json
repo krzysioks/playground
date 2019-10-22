@@ -29,6 +29,7 @@
         "css-loader": "^3.2.0",
         "env-cmd": "^10.0.1",
         "eslint": "^6.5.1",
+        "eslint-plugin-jest": "^22.19.0",
         "eslint-plugin-react": "^7.16.0",
         "formik": "^1.5.8",
         "jest": "^24.9.0",
@@ -58,6 +59,7 @@
         "mongodb": "^3.3.0-beta2",
         "mongoose": "^5.6.6",
         "path": "^0.12.7",
+        "react-icons": "^3.7.0",
         "react-use-localstorage": "^3.2.2",
         "webpack-config-utils": "^2.3.1"
     },
