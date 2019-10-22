@@ -21,19 +21,6 @@ const LoginSchema = Yup.object().shape({
 
 const TaskLogin = (props) => {
     const [, setItem] = useLocalStorage('token', '');
-    // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
-    // useEffect(() => {
-    //     fetch('./test')
-    //         .then(res => res.json())
-    //         .then(response => {
-    //             console.log('response', response);
-    //         });
-    // }, []);
-    // const [counter, setCounter] = useState(0);
-    // const _onClickHandler = () => {
-    //     const newValue = counter + 1;
-    //     setCounter(newValue);
-    // };
     const handleSubmit = async (values, actions) => {
         const { isUser, passwordMatched, token } = await postXhr('/task/login', values);
         if (isUser) {

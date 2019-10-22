@@ -70123,20 +70123,7 @@ var LoginSchema = yup__WEBPACK_IMPORTED_MODULE_13__["object"]().shape({
 var TaskLogin = function TaskLogin(props) {
   var _useLocalStorage = Object(react_use_localstorage__WEBPACK_IMPORTED_MODULE_7__["default"])('token', ''),
       _useLocalStorage2 = _slicedToArray(_useLocalStorage, 2),
-      setItem = _useLocalStorage2[1]; // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
-  // useEffect(() => {
-  //     fetch('./test')
-  //         .then(res => res.json())
-  //         .then(response => {
-  //             console.log('response', response);
-  //         });
-  // }, []);
-  // const [counter, setCounter] = useState(0);
-  // const _onClickHandler = () => {
-  //     const newValue = counter + 1;
-  //     setCounter(newValue);
-  // };
-
+      setItem = _useLocalStorage2[1];
 
   var handleSubmit =
   /*#__PURE__*/
