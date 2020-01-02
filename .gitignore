@@ -2,3 +2,4 @@ node_modules/
 package-lock.json
 server/config/config.json
 /server/config/dev.env
+/server/config/config.js
