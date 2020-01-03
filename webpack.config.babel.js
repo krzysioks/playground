@@ -17,7 +17,7 @@ export default env => {
       //   taskRegister: "./src/component/TaskRegister.js"
     },
     output: {
-      filename: "[name].js",
+      filename: "[name].bundle.js",
       path: resolve(__dirname, "dist")
     },
     devtool: ifNotProd("cheap-module-source-map"),
@@ -38,16 +38,16 @@ export default env => {
     },
     optimization: {
       splitChunks: {
-        // chunks: "all",
-        // maxSize: 300000,
-        cacheGroups: {
-          //All node_modules into vendors.js
-          commons: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "vendors",
-            chunks: "all"
-          }
-        }
+        chunks: "all",
+        maxSize: 200000
+        // cacheGroups: {
+        //   //All node_modules into vendors.js
+        //   commons: {
+        //     test: /[\\/]node_modules[\\/]/,
+        //     name: "vendors",
+        //     chunks: "all"
+        //   }
+        // }
       },
       minimizer: removeEmpty([
         ifProd(
