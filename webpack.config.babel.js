@@ -22,7 +22,16 @@ export default env => {
       path: resolve(__dirname, "dist")
     },
     devtool: ifNotProd("cheap-module-source-map"),
-    plugins: [new CompressionPlugin()],
+    plugins: [
+      ifProd(
+        new CompressionPlugin({
+          filename: "[path].gz[query]",
+          algorithm: "gzip",
+          test: /\.(js|json|css)$/,
+          deleteOriginalAssets: true
+        })
+      )
+    ],
     module: {
       rules: [
         {
@@ -40,16 +49,16 @@ export default env => {
     },
     optimization: {
       splitChunks: {
-        chunks: "all",
-        maxSize: 200000
-        // cacheGroups: {
-        //   //All node_modules into vendors.js
-        //   commons: {
-        //     test: /[\\/]node_modules[\\/]/,
-        //     name: "vendors",
-        //     chunks: "all"
-        //   }
-        // }
+        // chunks: "all"
+        // maxSize: 200000
+        cacheGroups: {
+          //All node_modules into vendors.js
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendors",
+            chunks: "all"
+          }
+        }
       },
       minimizer: removeEmpty([
         ifProd(
