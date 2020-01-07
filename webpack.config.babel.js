@@ -2,7 +2,7 @@ import webpack from "webpack";
 import { resolve } from "path";
 
 import { getIfUtils, removeEmpty } from "webpack-config-utils";
-import UglifyJsPlugin from "uglifyjs-webpack-plugin";
+// import UglifyJsPlugin from "uglifyjs-webpack-plugin";
 // import CompressionPlugin from "compression-webpack-plugin";
 
 export default env => {
@@ -59,15 +59,7 @@ export default env => {
             chunks: "all"
           }
         }
-      },
-      minimizer: removeEmpty([
-        ifProd(
-          new UglifyJsPlugin({
-            cache: true,
-            parallel: true
-          })
-        )
-      ])
+      }
     }
   };
 };
