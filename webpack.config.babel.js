@@ -3,7 +3,7 @@ import { resolve } from "path";
 
 import { getIfUtils, removeEmpty } from "webpack-config-utils";
 import UglifyJsPlugin from "uglifyjs-webpack-plugin";
-import CompressionPlugin from "compression-webpack-plugin";
+// import CompressionPlugin from "compression-webpack-plugin";
 
 export default env => {
   const { ifProd, ifNotProd } = getIfUtils(env);
@@ -22,16 +22,16 @@ export default env => {
       path: resolve(__dirname, "dist")
     },
     devtool: ifNotProd("cheap-module-source-map"),
-    plugins: [
-      ifProd(
-        new CompressionPlugin({
-          filename: "[path].gz[query]",
-          algorithm: "gzip",
-          test: /\.(js|json|css)$/,
-          deleteOriginalAssets: true
-        })
-      )
-    ],
+    // plugins: [
+    //   ifProd(
+    //     new CompressionPlugin({
+    //       filename: "[path].gz[query]",
+    //       algorithm: "gzip",
+    //       test: /\.(js|json|css)$/,
+    //       deleteOriginalAssets: true
+    //     })
+    //   )
+    // ],
     module: {
       rules: [
         {
