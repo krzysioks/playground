@@ -1383,6 +1383,19 @@ var Unauthorized = function Unauthorized() {
 
 /***/ }),
 
+/***/ "./src/img/taskApp.png":
+/*!*****************************!*\
+  !*** ./src/img/taskApp.png ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "0364c00d46f754ef3032f7567e3d28a2.png");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -1401,12 +1414,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _style_base_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./style/base.css */ "./src/style/base.css");
 /* harmony import */ var _style_base_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_style_base_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _img_taskApp_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./img/taskApp.png */ "./src/img/taskApp.png");
+/* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./manifest.json */ "./src/manifest.json");
+var _manifest_json__WEBPACK_IMPORTED_MODULE_6___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./manifest.json */ "./src/manifest.json", 1);
 
 
 
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Playground__WEBPACK_IMPORTED_MODULE_0__["default"], null), document.getElementById('playground'));
+
+
+react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Playground__WEBPACK_IMPORTED_MODULE_0__["default"], null), document.getElementById("playground"));
+
+/***/ }),
+
+/***/ "./src/manifest.json":
+/*!***************************!*\
+  !*** ./src/manifest.json ***!
+  \***************************/
+/*! exports provided: name, short_name, start_url, theme_color, background_color, display, orientation, icons, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"name\":\"task app\",\"short_name\":\"taskApp\",\"start_url\":\"/\",\"theme_color\":\"#d3d3d3\",\"background_color\":\"#FFFFFF\",\"display\":\"standalone\",\"orientation\":\"any\",\"icons\":[{\"src\":\"/0364c00d46f754ef3032f7567e3d28a2.png\",\"sizes\":\"192x192\",\"type\":\"image/png\"},{\"src\":\"/0364c00d46f754ef3032f7567e3d28a2.png\",\"sizes\":\"512x512\",\"type\":\"image/png\"}]}");
 
 /***/ }),
 

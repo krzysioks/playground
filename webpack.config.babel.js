@@ -27,6 +27,10 @@ export default env => {
         {
           test: /\.scss$|\.css$/,
           loader: "style-loader!css-loader"
+        },
+        {
+          test: /\.(png|svg|jpg|gif)$/,
+          use: ["file-loader"]
         }
       ]
     },

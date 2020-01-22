@@ -8,12 +8,12 @@
   "orientation": "any",
   "icons": [
     {
-      "src": "/img/taskApp.png",
+      "src": "/0364c00d46f754ef3032f7567e3d28a2.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/img/taskApp.png",
+      "src": "/0364c00d46f754ef3032f7567e3d28a2.png",
       "sizes": "512x512",
       "type": "image/png"
     }
