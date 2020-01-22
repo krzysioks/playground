@@ -1,0 +1,21 @@
+{
+  "name": "task app",
+  "short_name": "taskApp",
+  "start_url": "/",
+  "theme_color": "#d3d3d3",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/img/taskApp.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/taskApp.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
