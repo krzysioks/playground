@@ -1,6 +1,9 @@
 import webpack from "webpack";
 import { resolve } from "path";
 import { getIfUtils, removeEmpty } from "webpack-config-utils";
+import ManifestPlugin from "webpack-manifest-plugin";
+import SWPrecacheWebpackPlugin from "sw-precache-webpack-plugin";
+import CopyWebpackPlugin from "copy-webpack-plugin";
 
 export default env => {
   const { ifProd, ifNotProd } = getIfUtils(env);
@@ -8,7 +11,8 @@ export default env => {
   return {
     mode: ifProd("production", "development"),
     entry: {
-      index: "./src/index.js"
+      index: "./src/index.js",
+      worker: "./src/worker.js"
     },
     output: {
       filename: "[name].bundle.js",
@@ -34,6 +38,40 @@ export default env => {
         }
       ]
     },
+    plugins: removeEmpty([
+      ifProd(
+        new ManifestPlugin({
+          filename: "asset-manifest.json"
+        })
+      ),
+      ifProd(
+        new SWPrecacheWebpackPlugin({
+          // By default, a cache-busting query parameter is appended to requests
+          // used to populate the caches, to ensure the responses are fresh.
+          // If a URL is already hashed by Webpack, then there is no concern
+          // about it being stale, and the cache-busting can be skipped.
+          dontCacheBustUrlsMatching: /\.\w{8}\./,
+          filename: "service-worker.js",
+          logger(message) {
+            if (message.indexOf("Total precache size is") === 0) {
+              // This message occurs for every build and is a bit too noisy.
+              return;
+            }
+            console.log(message);
+          },
+          minify: true,
+          navigateFallback: "/index.html",
+          staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
+        })
+      ),
+      ifProd(
+        new CopyWebpackPlugin([
+          {
+            from: "src/pwa"
+          }
+        ])
+      )
+    ]),
     optimization: {
       splitChunks: {
         cacheGroups: {
