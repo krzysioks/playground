@@ -1,7 +1,7 @@
 {
   "name": "Task App",
   "short_name": "taskApp",
-  "start_url": "/index.html",
+  "start_url": "/#/task/login",
   "theme_color": "#d3d3d3",
   "background_color": "#FFFFFF",
   "display": "standalone",
