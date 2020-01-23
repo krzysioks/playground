@@ -11,8 +11,7 @@ export default env => {
   return {
     mode: ifProd("production", "development"),
     entry: {
-      index: "./src/index.js",
-      worker: "./src/worker.js"
+      index: "./src/index.js"
     },
     output: {
       filename: "[name].bundle.js",
@@ -41,7 +40,7 @@ export default env => {
     plugins: removeEmpty([
       ifProd(
         new ManifestPlugin({
-          filename: "asset-manifest.json"
+          fileName: "asset-manifest.json"
         })
       ),
       ifProd(
@@ -67,7 +66,8 @@ export default env => {
       ifProd(
         new CopyWebpackPlugin([
           {
-            from: "src/pwa"
+            from: resolve(__dirname, "src/pwa"),
+            to: resolve(__dirname, "dist")
           }
         ])
       )
