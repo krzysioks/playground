@@ -6,7 +6,6 @@ import { Card, CardBody, CardTitle, Button } from "reactstrap";
 import { Formik, Field, Form } from "formik";
 import { postXhr } from "../common/utils";
 import * as Yup from "yup";
-import * as runtime from "offline-plugin/runtime";
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string()
@@ -24,26 +23,6 @@ const LoginSchema = Yup.object().shape({
 });
 
 const TaskLogin = props => {
-  runtime.install({
-    onUpdating: () => {
-      console.log("SW Event:", "onUpdating");
-    },
-    onUpdateReady: () => {
-      console.log("SW Event:", "onUpdateReady");
-      // Tells to new SW to take control immediately
-      runtime.applyUpdate();
-    },
-    onUpdated: () => {
-      console.log("SW Event:", "onUpdated");
-      // Reload the webpage to load into the new version
-      window.location.reload();
-    },
-
-    onUpdateFailed: () => {
-      console.log("SW Event:", "onUpdateFailed");
-    }
-  });
-
   const [, setItem] = useLocalStorage("token", "");
   const handleSubmit = async (values, actions) => {
     const { isUser, passwordMatched, token } = await postXhr(
