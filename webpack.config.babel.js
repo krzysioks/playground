@@ -4,6 +4,7 @@ import { getIfUtils, removeEmpty } from "webpack-config-utils";
 import ManifestPlugin from "webpack-manifest-plugin";
 import SWPrecacheWebpackPlugin from "sw-precache-webpack-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
+import OfflinePlugin from "offline-plugin";
 
 export default env => {
   const { ifProd, ifNotProd } = getIfUtils(env);
@@ -70,7 +71,12 @@ export default env => {
             to: resolve(__dirname, "dist")
           }
         ])
-      )
+      ),
+      new OfflinePlugin({
+        ServiceWorker: {
+          events: true
+        }
+      })
     ]),
     optimization: {
       splitChunks: {
