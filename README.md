@@ -21,64 +21,53 @@ Passing Lighthouse audit:
 * [jest](https://jestjs.io/) - JavaScript Testing Framework for testing back end
 
 
+## Prerequisites
 
-## Getting Started
+In order to develop application on local machine install:
+1. Node.js (at least 12.4.0)
+2. download and install [mongodb](https://www.mongodb.com/download-center/community) as a local database server
+3. [MongoDB Compass](https://www.mongodb.com/products/compass) - gui for managing database
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+For production deployment it will be needed to setup production version of database. For purpose of this application mongodb atlas free (https://www.mongodb.com/cloud/atlas) has been used.
 
-### Prerequisites
+## Installing and development
 
-What things you need to install the software and how to install them
-
+### Local development
+1. download project
+2. run:
 ```
-Give examples
+npm install
+```
+3. start local database server (for windows users):
+a) open cmd window
+b) navigate to "bin" folder of your mongodb server installation folder (typicly: C:\Program Files\MongoDB\Server\3.6\bin where "3.6" is version of mongodb)
+c) run:
+```
+mongod.exe --dbpath /Users/krzysztofp/mongo-data
+```
+d) open another cmd window; navigate to "bin" and run:
+```
+mongo.exe
+```
+4. start server
+```
+npm run server:watch
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+5. start local development
 ```
-Give the example
+npm run build:watch
 ```
 
-And repeat
-
+### Production version
 ```
-until finished
+npm run build
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+To run test suites for back end run:
 
 ```
-Give an example
+npm run test:watch
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
