@@ -1,6 +1,11 @@
 # Playground to test react hooks
 
-PWA react based application created to play with newset features of React and more.
+PWA React based application created to play with newset features of React and more. 
+Deplyed to heroku server ar: https://kp-playground-taskapp.herokuapp.com/
+Passing Lighthouse audit:
+<p>
+    <img src="client/img/lighthouseaudit.png" alt="Lighthouse" class="scale" />
+</p>
 
 ## Built With
 
