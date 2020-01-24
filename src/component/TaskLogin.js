@@ -11,7 +11,6 @@ const LoginSchema = Yup.object().shape({
   username: Yup.string()
     .min(2, "User name is too short")
     .max(50, "User name is too long")
-
     .required("Username is required"),
   password: Yup.string()
     .min(8, "Password too short")
@@ -75,9 +74,9 @@ const TaskLogin = props => {
                   <Button disabled={!isValid || isSubmitting} color="secondary">
                     log in
                   </Button>
-                  <Link className="align-self-end" to="/task/register">
+                  <Button className="align-self-end" to="/task/register">
                     register
-                  </Link>
+                  </Button>
                 </div>
               </Form>
             )}
