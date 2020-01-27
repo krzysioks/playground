@@ -42,6 +42,10 @@ const TaskLogin = props => {
     actions.setSubmitting(false);
   };
 
+  const handleRegister = () => {
+    props.history.push("/task/register");
+  };
+
   return (
     <div className="app d-flex justify-content-center align-items-center">
       <Card className="loginCard">
@@ -74,7 +78,7 @@ const TaskLogin = props => {
                   <Button disabled={!isValid || isSubmitting} color="secondary">
                     log in
                   </Button>
-                  <Button className="align-self-end" to="/task/register">
+                  <Button onClick={handleRegister} className="align-self-end">
                     register
                   </Button>
                 </div>

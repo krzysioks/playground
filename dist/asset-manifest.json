@@ -1,6 +1,7 @@
 {
   "index.js": "index.bundle.js",
   "vendors.js": "vendors.bundle.js",
+  "lighthouseaudit.png": "lighthouseaudit.png",
   "manifest.json": "manifest.json",
   "sw.js": "sw.js",
   "taskApp.png": "taskApp.png"
