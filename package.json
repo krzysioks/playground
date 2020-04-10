@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
-    "test": "env-cmd -f ./server/config/test.env jest --runInBand",
-    "test:watch": "env-cmd -f ./server/config/test.env jest --watch --runInBand",
+    "test": "env-cmd -f ./server/config/test.env jest Btest --runInBand",
+    "test:watch": "env-cmd -f ./server/config/test.env jest Btest --watch --runInBand",
+    "ftest": "env-cmd -f ./server/config/test.env jest Ftest --runInBand",
     "build": "webpack --env.prod",
     "build:dev": "webpack --env.dev",
     "build:watch": "webpack -w --env.dev",
@@ -16,7 +17,7 @@
     "node": "12.4.0"
   },
   "jest": {
-    "testEnvironment": "node"
+    "preset": "jest-puppeteer"
   },
   "keywords": [],
   "author": "",
@@ -39,10 +40,12 @@
     "file-loader": "^5.0.2",
     "formik": "^1.5.8",
     "jest": "^24.9.0",
+    "jest-puppeteer": "^4.4.0",
     "lodash": "^4.17.15",
     "mini-css-extract-plugin": "^0.8.2",
     "node-sass": "^4.13.1",
     "offline-plugin": "^5.0.7",
+    "puppeteer": "^2.1.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
