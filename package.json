@@ -7,7 +7,7 @@
     "start": "node server/server.js",
     "test": "env-cmd -f ./server/config/test.env jest Btest --runInBand",
     "test:watch": "env-cmd -f ./server/config/test.env jest Btest --watch --runInBand",
-    "ftest": "env-cmd -f ./server/config/test.env jest Ftest --runInBand",
+    "ftest": "env-cmd -f ./server/config/dev.env jest Ftest --runInBand",
     "build": "webpack --env.prod",
     "build:dev": "webpack --env.dev",
     "build:watch": "webpack -w --env.dev",
