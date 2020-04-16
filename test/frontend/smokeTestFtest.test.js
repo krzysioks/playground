@@ -5,6 +5,18 @@ const UserModel = require("../../server/models/user.js");
 const TaskModel = require("../../server/models/task.js");
 const mongoose = require("mongoose");
 
+const options = {
+  vpQHD: {
+    width: 2550,
+    height: 1440,
+  },
+  vpHD: {
+    width: 1920,
+    height: 1080,
+  },
+};
+const { width, height } = options.vpQHD;
+
 // test data
 const correctUserId = new mongoose.Types.ObjectId();
 const token = jwt.sign({ _id: correctUserId }, process.env.JWT_SECRET);
@@ -28,6 +40,35 @@ const unregisteredUser = {
   tokens: [
     {
       token,
+    },
+  ],
+};
+
+const userToRegisterId = new mongoose.Types.ObjectId();
+const registerUserToken = jwt.sign(
+  { _id: correctUserId },
+  process.env.JWT_SECRET
+);
+const userToRegister = {
+  _id: userToRegisterId,
+  username: "Mike",
+  email: "mike.donovan@gmail.com",
+  password: "Mike__2020!",
+  tokens: [
+    {
+      registerUserToken,
+    },
+  ],
+};
+
+const notValidUserToRegister = {
+  _id: userToRegisterId,
+  username: "M",
+  email: "mike.donovangmail.com",
+  password: "Mike__1234567",
+  tokens: [
+    {
+      registerUserToken,
     },
   ],
 };
@@ -82,12 +123,15 @@ describe("Front end test", () => {
     await mongoose.disconnect();
   });
 
-  test("Should log in successfully", (done) => {
+  test("Should log in and log out successfully registered user", (done) => {
     puppeteer
-      .launch({ headless: false, args: ["--start-fullscreen"] })
+      .launch({
+        headless: false,
+        args: [`--window-size=${width},${height}`],
+      })
       .then(async (browser) => {
         const page = await browser.newPage();
-        await page.setViewport({ width: 1920, height: 1080 });
+        await page.setViewport({ width, height });
         await page.goto(process.env.PAGE_URL);
         //fill in login..
         await page.focus(
@@ -116,21 +160,34 @@ describe("Front end test", () => {
         );
 
         expect(btnName).toBe("refresh");
-
         //close browser after 1500ms
         setTimeout(async () => {
-          await browser.close();
-          await done();
-        }, 1500);
+          //click on logout button
+          await page.click(
+            "#playground > div > div > div.d-flex.flex-row.justify-content-between.card-body > button:nth-child(2)"
+          );
+          await page.waitFor("#playground > div > div > div > div", {
+            visible: true,
+          });
+          const loginLabel = await page.$eval(
+            "#playground > div > div > div > div",
+            (label) => label.innerHTML
+          );
+          expect(loginLabel).toBe("Welcome to Task App");
+          setTimeout(async () => {
+            await browser.close();
+            await done();
+          }, 1000);
+        }, 1000);
       });
   });
 
   test("Should not log in if user is not registered", (done) => {
     puppeteer
-      .launch({ headless: false, args: ["--start-fullscreen"] })
+      .launch({ headless: false, args: [`--window-size=${width},${height}`] })
       .then(async (browser) => {
         const page = await browser.newPage();
-        await page.setViewport({ width: 1920, height: 1080 });
+        await page.setViewport({ width, height });
         await page.goto(process.env.PAGE_URL);
         //fill in login..
         await page.focus(
@@ -170,10 +227,10 @@ describe("Front end test", () => {
 
   test("Should not log in if user provided wrong password", (done) => {
     puppeteer
-      .launch({ headless: false, args: ["--start-fullscreen"] })
+      .launch({ headless: false, args: [`--window-size=${width},${height}`] })
       .then(async (browser) => {
         const page = await browser.newPage();
-        await page.setViewport({ width: 1920, height: 1080 });
+        await page.setViewport({ width, height });
         await page.goto(process.env.PAGE_URL);
         //fill in login..
         await page.focus(
@@ -202,6 +259,226 @@ describe("Front end test", () => {
         );
 
         expect(label).toBe("Password does not match");
+
+        //close browser after 1500ms
+        setTimeout(async () => {
+          await browser.close();
+          await done();
+        }, 1500);
+      });
+  });
+
+  test("Should register user with valid data", (done) => {
+    puppeteer
+      .launch({ headless: false, args: [`--window-size=${width},${height}`] })
+      .then(async (browser) => {
+        const page = await browser.newPage();
+        await page.setViewport({ width, height });
+        await page.goto(process.env.PAGE_URL);
+
+        //click on register btn
+        await page.click(
+          "#playground > div > div > div > form > div.d-flex.flex-row.justify-content-between.mt-2 > button.align-self-end.btn.btn-secondary"
+        );
+
+        //wait until register form shows up
+        await page.waitFor(
+          "#playground > div > div > div > form > div:nth-child(1) > input",
+          { visible: true }
+        );
+
+        //fill in username..
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(1) > input"
+        );
+        await page.keyboard.type(userToRegister.username);
+
+        //.. password
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(2) > input"
+        );
+        await page.keyboard.type(userToRegister.password);
+
+        //..retype password
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(3) > input"
+        );
+        await page.keyboard.type(userToRegister.password);
+
+        //..email fields
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(4) > input"
+        );
+
+        await page.keyboard.type(userToRegister.email);
+        //click on sign in button
+        await page.click(
+          "#playground > div > div > div > form > div.d-flex.flex-row.justify-content-between.mt-2 > button"
+        );
+
+        //wait until user signed in correctly
+        await page.waitFor(
+          "#playground > div > div > div > form > div:nth-child(5) > div",
+          { visible: true }
+        );
+        const label = await page.$eval(
+          "#playground > div > div > div > form > div:nth-child(5) > div",
+          (successLabel) => successLabel.innerHTML
+        );
+
+        expect(label).toBe(
+          `Dear ${userToRegister.username}, you signed up successfully.`
+        );
+
+        //close browser after 1500ms
+        setTimeout(async () => {
+          await browser.close();
+          await done();
+        }, 1500);
+      });
+  });
+
+  test("Should not register user with not valid username, password and email", (done) => {
+    puppeteer
+      .launch({ headless: false, args: [`--window-size=${width},${height}`] })
+      .then(async (browser) => {
+        const page = await browser.newPage();
+        await page.setViewport({ width, height });
+        await page.goto(process.env.PAGE_URL);
+
+        //click on register btn
+        await page.click(
+          "#playground > div > div > div > form > div.d-flex.flex-row.justify-content-between.mt-2 > button.align-self-end.btn.btn-secondary"
+        );
+
+        //wait until register form shows up
+        await page.waitFor(
+          "#playground > div > div > div > form > div:nth-child(1) > input",
+          { visible: true }
+        );
+
+        //fill in username..
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(1) > input"
+        );
+        await page.keyboard.type(notValidUserToRegister.username);
+
+        //.. password
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(2) > input"
+        );
+        await page.keyboard.type(notValidUserToRegister.password);
+
+        //..retype password
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(3) > input"
+        );
+        await page.keyboard.type(notValidUserToRegister.password);
+
+        //..email fields
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(4) > input"
+        );
+
+        await page.keyboard.type(notValidUserToRegister.email);
+
+        //focus on sign in button
+        await page.focus(
+          "#playground > div > div > div > form > div.d-flex.flex-row.justify-content-between.mt-2 > a"
+        );
+
+        //wait until user error message for to short username shows up
+        await page.waitFor(
+          "#playground > div > div > div > form > div:nth-child(1) > div",
+          { visible: true }
+        );
+
+        const userErrorLabel = await page.$eval(
+          "#playground > div > div > div > form > div:nth-child(1) > div",
+          (errLabel) => errLabel.innerHTML
+        );
+        const passwordErrorLabel = await page.$eval(
+          "#playground > div > div > div > form > div:nth-child(2) > div",
+          (errLabel) => errLabel.innerHTML
+        );
+        const emailErrorLabel = await page.$eval(
+          "#playground > div > div > div > form > div:nth-child(4) > div",
+          (errLabel) => errLabel.innerHTML
+        );
+
+        expect(userErrorLabel).toBe("User name is too short");
+        expect(emailErrorLabel).toBe("Email is invalid");
+        expect(passwordErrorLabel).toBe(
+          'Password must have at least one: large and small letter, number, special character "!@#$%^&amp;*())"'
+        );
+
+        //close browser after 1500ms
+        setTimeout(async () => {
+          await browser.close();
+          await done();
+        }, 1500);
+      });
+  });
+
+  test("Should not register user with wrongly typed password", (done) => {
+    puppeteer
+      .launch({ headless: false, args: [`--window-size=${width},${height}`] })
+      .then(async (browser) => {
+        const page = await browser.newPage();
+        await page.setViewport({ width, height });
+        await page.goto(process.env.PAGE_URL);
+
+        //click on register btn
+        await page.click(
+          "#playground > div > div > div > form > div.d-flex.flex-row.justify-content-between.mt-2 > button.align-self-end.btn.btn-secondary"
+        );
+
+        //wait until register form shows up
+        await page.waitFor(
+          "#playground > div > div > div > form > div:nth-child(1) > input",
+          { visible: true }
+        );
+
+        //fill in username..
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(1) > input"
+        );
+        await page.keyboard.type(userToRegister.username);
+
+        //.. password
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(2) > input"
+        );
+        await page.keyboard.type(userToRegister.password);
+
+        //..retype password
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(3) > input"
+        );
+        await page.keyboard.type(`${userToRegister.password}false`);
+
+        //..email fields
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(4) > input"
+        );
+
+        await page.keyboard.type(userToRegister.email);
+        //click on sign in button
+        await page.click(
+          "#playground > div > div > div > form > div.d-flex.flex-row.justify-content-between.mt-2 > button"
+        );
+
+        //wait until error message for incorrect password shows up
+        await page.waitFor(
+          "#playground > div > div > div > form > div:nth-child(3) > div",
+          { visible: true }
+        );
+        const label = await page.$eval(
+          "#playground > div > div > div > form > div:nth-child(3) > div",
+          (errLabel) => errLabel.innerHTML
+        );
+
+        expect(label).toBe("Passwords do not match");
 
         //close browser after 1500ms
         setTimeout(async () => {
