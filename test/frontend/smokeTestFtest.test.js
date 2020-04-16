@@ -20,6 +20,18 @@ const correctUser = {
   ],
 };
 
+const unregisteredUser = {
+  _id: correctUserId,
+  username: "jakob",
+  email: "jakob.josen@gmail.com",
+  password: "Jakob2020!",
+  tokens: [
+    {
+      token,
+    },
+  ],
+};
+
 const taskList = [
   {
     name: "Fix internet",
@@ -41,16 +53,22 @@ const taskList = [
   },
 ];
 
+/**
+ * Test of front end
+ * 1. Database is prepared for each test case
+ * 2. each test has assertions to determine if test is successfull
+ * 3. browser is opened for visual test (eg.: check if elements are rendered properly)
+ *
+ * jest.config.js is used to extend timeout so that all test are finished and test suite is closing correctly
+ * Timeout extension is needed to take into account time spent on opening/closing browser window.
+ * If timeout is not enough ->  extend in setupTestFramework.js
+ */
 describe("Front end test", () => {
   // before any test tear down clear database
   beforeEach(async () => {
-    await UserModel.deleteOne({
-      _id: correctUserId,
-    });
+    await UserModel.deleteMany();
     await new UserModel(correctUser).save();
-    await TaskModel.deleteMany({
-      taskOwnerId: correctUserId,
-    });
+    await TaskModel.deleteMany();
     taskList.forEach(async (task) => {
       await new TaskModel(task).save();
     });
@@ -58,22 +76,18 @@ describe("Front end test", () => {
 
   //close connection to server so, that test suite will close and clear db
   afterAll(async () => {
-    await TaskModel.deleteMany({
-      taskOwnerId: correctUserId,
-    });
-    await UserModel.deleteOne({
-      _id: correctUserId,
-    });
+    await TaskModel.deleteMany();
+    await UserModel.deleteMany();
     await app.close();
     await mongoose.disconnect();
   });
 
   test("Should log in successfully", (done) => {
     puppeteer
-      .launch({ headless: true, args: ["--start-fullscreen"] })
+      .launch({ headless: false, args: ["--start-fullscreen"] })
       .then(async (browser) => {
         const page = await browser.newPage();
-        await page.setViewport({ width: 2560, height: 1440 });
+        await page.setViewport({ width: 1920, height: 1080 });
         await page.goto(process.env.PAGE_URL);
         //fill in login..
         await page.focus(
@@ -89,31 +103,111 @@ describe("Front end test", () => {
         await page.click(
           "#playground > div > div > div > form > div.d-flex.flex-row.justify-content-between.mt-2 > button:nth-child(1)"
         );
+
+        //wait until page after login will be loaded
         await page.waitFor(
           "#playground > div > div > div.d-flex.flex-row.justify-content-between.card-body > button:nth-child(1)",
           { visible: true }
         );
-        // const refreshBtn = await page.$(
-        //   "#playground > div > div > div.d-flex.flex-row.justify-content-between.card-body > button:nth-child(1)"
-        // );
+
         const btnName = await page.$eval(
           "#playground > div > div > div.d-flex.flex-row.justify-content-between.card-body > button:nth-child(1)",
           (btn) => btn.innerHTML
         );
-        // const value = await btnName.jsonValue();
-        // console.log("test: ", btnName);
 
-        if (btnName == "refresh") {
-          expect("refresh").toBe("refresh");
-        } else {
-          expect("false").toBe("refresh");
-        }
+        expect(btnName).toBe("refresh");
 
-        // const btnName = await refreshBtn.getProperty("innerHTML");
-        // console.log("btnName: ", btnName);
-        // expect("refresh").toBe("refresh");
-        await browser.close();
-        await done();
+        //close browser after 1500ms
+        setTimeout(async () => {
+          await browser.close();
+          await done();
+        }, 1500);
+      });
+  });
+
+  test("Should not log in if user is not registered", (done) => {
+    puppeteer
+      .launch({ headless: false, args: ["--start-fullscreen"] })
+      .then(async (browser) => {
+        const page = await browser.newPage();
+        await page.setViewport({ width: 1920, height: 1080 });
+        await page.goto(process.env.PAGE_URL);
+        //fill in login..
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(1) > input"
+        );
+        await page.keyboard.type(unregisteredUser.username);
+        //.. password fields
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(2) > input"
+        );
+        await page.keyboard.type(unregisteredUser.password);
+        //click on login button
+        await page.click(
+          "#playground > div > div > div > form > div.d-flex.flex-row.justify-content-between.mt-2 > button:nth-child(1)"
+        );
+
+        //wait until error label showed up
+        await page.waitFor(
+          "#playground > div > div > div > form > div:nth-child(1) > div",
+          { visible: true }
+        );
+
+        const notExistentUserLabel = await page.$eval(
+          "#playground > div > div > div > form > div:nth-child(1) > div",
+          (errLabel) => errLabel.innerHTML
+        );
+
+        expect(notExistentUserLabel).toBe("User does not exist");
+
+        //close browser after 1500ms
+        setTimeout(async () => {
+          await browser.close();
+          await done();
+        }, 1500);
+      });
+  });
+
+  test("Should not log in if user provided wrong password", (done) => {
+    puppeteer
+      .launch({ headless: false, args: ["--start-fullscreen"] })
+      .then(async (browser) => {
+        const page = await browser.newPage();
+        await page.setViewport({ width: 1920, height: 1080 });
+        await page.goto(process.env.PAGE_URL);
+        //fill in login..
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(1) > input"
+        );
+        await page.keyboard.type(correctUser.username);
+        //.. password fields
+        await page.focus(
+          "#playground > div > div > div > form > div:nth-child(2) > input"
+        );
+        await page.keyboard.type(`${correctUser.password}wrong`);
+        //click on login button
+        await page.click(
+          "#playground > div > div > div > form > div.d-flex.flex-row.justify-content-between.mt-2 > button:nth-child(1)"
+        );
+
+        //wait until error label showed up
+        await page.waitFor(
+          "#playground > div > div > div > form > div:nth-child(2) > div",
+          { visible: true }
+        );
+
+        const label = await page.$eval(
+          "#playground > div > div > div > form > div:nth-child(2) > div",
+          (errLabel) => errLabel.innerHTML
+        );
+
+        expect(label).toBe("Password does not match");
+
+        //close browser after 1500ms
+        setTimeout(async () => {
+          await browser.close();
+          await done();
+        }, 1500);
       });
   });
 });
