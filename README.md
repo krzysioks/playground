@@ -18,7 +18,9 @@ Passing Lighthouse audit:
 * [yup](https://github.com/jquense/yup) - JavaScript schema builder for form validation
 * [reactstrap](https://reactstrap.github.io/) - bootstrap 4 components for React for creating layout
 * [mongodb/mongoose](https://www.mongodb.com/) - database
-* [jest](https://jestjs.io/) - JavaScript Testing Framework for testing back end
+* [jest](https://jestjs.io/) - JavaScript test framework for back end testing
+* [puppeteer](https://github.com/puppeteer/puppeteer) - JavaScript testing framework for front end testing
+
 
 
 ## Prerequisites
@@ -70,4 +72,10 @@ To run test suites for back end run:
 
 ```
 npm run test:watch
+```
+
+To run test suites for front end run:
+
+```
+npm run ftest
 ```
