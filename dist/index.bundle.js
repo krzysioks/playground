@@ -166,7 +166,7 @@
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "html,\nbody {\n  height: 100%;\n  background-color: #d3d3d3;\n}\n.dark {\n  background-color: rgb(211, 211, 211);\n}\n.app {\n  height: 100%;\n}\n.loginCard {\n  width: 300px;\n  height: 450px;\n}\n.statusContainer {\n  top: 7px;\n  margin: 0px 45px 0px 45px;\n}\n.statusLabel {\n  top: -2px;\n}\n.pointer {\n  cursor: pointer !important;\n}\n\n.task-btn {\n  height: 36px !important;\n  padding: 5px 15px 5px 15px;\n}\n\n#playground > div > div > div:nth-child(2) > form > div > div:nth-child(1) {\n  width: 100% !important;\n}\n", ""]);
+exports.push([module.i, "html,\nbody {\n\theight: 100%;\n\tbackground-color: #d3d3d3;\n}\n.dark {\n\tbackground-color: rgb(211, 211, 211);\n}\n.app {\n\theight: 100%;\n}\n.loginCard {\n\twidth: 300px;\n\theight: 450px;\n}\n.statusContainer {\n\ttop: 7px;\n\tmargin: 0px 45px 0px 45px;\n}\n.statusLabel {\n\ttop: -2px;\n}\n.pointer {\n\tcursor: pointer !important;\n}\n\n.task-btn {\n\theight: 36px !important;\n\tpadding: 5px 15px 5px 15px;\n}\n\n#playground > div > div > div:nth-child(2) > form > div > div:nth-child(1) {\n\twidth: 100% !important;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -1161,46 +1161,26 @@ var TaskMainView = function TaskMainView(props) {
     })), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", null, status ? 'Completed' : 'Not Completed'), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", {
       className: "d-flex justify-content-sm-around"
     }, status ? react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
-      id: "_".concat(key, "action")
-    }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdUndo"], {
-      className: "pointer m-1 mb-2",
+      className: "pointer p-1 pb-2",
       onClick: handleAction.bind(null, '/task/edit', {
         _id: _id,
         status: false
       })
-    }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["UncontrolledTooltip"], {
-      placement: "top",
-      target: "_".concat(key, "action")
-    }, "Undo complete")) : react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
-      id: "_".concat(key, "action")
-    }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdDone"], {
-      className: "pointer m-1 mb-2",
+    }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdUndo"], null)) : react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+      className: "pointer p-1 pb-2",
       onClick: handleAction.bind(null, '/task/edit', {
         _id: _id,
         status: true
       })
-    }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["UncontrolledTooltip"], {
-      placement: "top",
-      target: "_".concat(key, "action")
-    }, "Complete")), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
-      id: "_".concat(key, "edit")
-    }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdModeEdit"], {
-      className: "pointer m-1 mb-2",
+    }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdDone"], null)), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+      className: "pointer p-1 pb-2",
       onClick: handleEditMode.bind(null, key)
-    }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["UncontrolledTooltip"], {
-      placement: "top",
-      target: "_".concat(key, "edit")
-    }, "Edit")), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
-      id: "_".concat(key, "delete")
-    }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdDelete"], {
-      className: "pointer m-1 mb-2",
+    }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdModeEdit"], null)), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+      className: "pointer p-1 pb-2",
       onClick: handleAction.bind(null, '/task/delete', {
         _id: _id
       })
-    }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["UncontrolledTooltip"], {
-      placement: "top",
-      target: "_".concat(key, "delete")
-    }, "Delete"))));
+    }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdDelete"], null))));
   }) : react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", {
     colSpan: "4"
   }, "No data to display"))))))) : react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", null, "Loading...");

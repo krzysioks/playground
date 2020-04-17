@@ -254,78 +254,54 @@ const TaskMainView = (props) => {
 											</td>
 											<td className="d-flex justify-content-sm-around">
 												{status ? (
-													<div id={`_${key}action`}>
-														<MdUndo
-															className="pointer m-1 mb-2"
-															onClick={handleAction.bind(
-																null,
-																'/task/edit',
-																{
-																	_id,
-																	status: false,
-																}
-															)}
-														/>
-														<UncontrolledTooltip
-															placement="top"
-															target={`_${key}action`}
-														>
-															Undo complete
-														</UncontrolledTooltip>
-													</div>
-												) : (
-													<div id={`_${key}action`}>
-														<MdDone
-															className="pointer m-1 mb-2"
-															onClick={handleAction.bind(
-																null,
-																'/task/edit',
-																{
-																	_id,
-																	status: true,
-																}
-															)}
-														/>
-														<UncontrolledTooltip
-															placement="top"
-															target={`_${key}action`}
-														>
-															Complete
-														</UncontrolledTooltip>
-													</div>
-												)}
-												<div id={`_${key}edit`}>
-													<MdModeEdit
-														className="pointer m-1 mb-2"
-														onClick={handleEditMode.bind(
-															null,
-															key
-														)}
-													/>
-													<UncontrolledTooltip
-														placement="top"
-														target={`_${key}edit`}
-													>
-														Edit
-													</UncontrolledTooltip>
-												</div>
-												<div id={`_${key}delete`}>
-													<MdDelete
-														className="pointer m-1 mb-2"
+													<div
+														className="pointer p-1 pb-2"
 														onClick={handleAction.bind(
 															null,
-															'/task/delete',
+															'/task/edit',
 															{
 																_id,
+																status: false,
 															}
 														)}
-													/>
-													<UncontrolledTooltip
-														placement="top"
-														target={`_${key}delete`}
 													>
-														Delete
-													</UncontrolledTooltip>
+														<MdUndo />
+													</div>
+												) : (
+													<div
+														className="pointer p-1 pb-2"
+														onClick={handleAction.bind(
+															null,
+															'/task/edit',
+															{
+																_id,
+																status: true,
+															}
+														)}
+													>
+														<MdDone />
+													</div>
+												)}
+												<div
+													className="pointer p-1 pb-2"
+													onClick={handleEditMode.bind(
+														null,
+														key
+													)}
+												>
+													<MdModeEdit />
+												</div>
+												<div
+													className="pointer p-1 pb-2"
+													onClick={handleAction.bind(
+														null,
+														'/task/delete',
+														{
+															_id,
+														}
+													)}
+												>
+													<MdDelete />
 												</div>
 											</td>
 										</tr>
