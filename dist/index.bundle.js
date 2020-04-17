@@ -166,7 +166,7 @@
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "html,\nbody {\n  height: 100%;\n  background-color: #d3d3d3;\n}\n.dark {\n  background-color: rgb(211, 211, 211);\n}\n.app {\n  height: 100%;\n}\n.loginCard {\n  width: 300px;\n  height: 450px;\n}\n.statusContainer {\n  top: 7px;\n  margin: 0px 45px 0px 45px;\n}\n.statusLabel {\n  top: -2px;\n}\n.pointer {\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "html,\nbody {\n  height: 100%;\n  background-color: #d3d3d3;\n}\n.dark {\n  background-color: rgb(211, 211, 211);\n}\n.app {\n  height: 100%;\n}\n.loginCard {\n  width: 300px;\n  height: 450px;\n}\n.statusContainer {\n  top: 7px;\n  margin: 0px 45px 0px 45px;\n}\n.statusLabel {\n  top: -2px;\n}\n.pointer {\n  cursor: pointer !important;\n}\n\n.task-btn {\n  height: 36px !important;\n  padding: 5px 15px 5px 15px;\n}\n\n#playground > div > div > div:nth-child(2) > form > div > div:nth-child(1) {\n  width: 100% !important;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -766,11 +766,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var TaskSchema = yup__WEBPACK_IMPORTED_MODULE_21__["object"]().shape({
-  name: yup__WEBPACK_IMPORTED_MODULE_21__["string"]().min(2, "User name is too short").max(50, "User name is too long").required("Name of the task is required")
+  name: yup__WEBPACK_IMPORTED_MODULE_21__["string"]().min(2, 'Name of task is too short').max(160, 'Name of task is too long').required('Name of the task is required')
 });
 
 var TaskMainView = function TaskMainView(props) {
-  var _useLocalStorage = Object(react_use_localstorage__WEBPACK_IMPORTED_MODULE_15__["default"])("token"),
+  var _useLocalStorage = Object(react_use_localstorage__WEBPACK_IMPORTED_MODULE_15__["default"])('token'),
       _useLocalStorage2 = _slicedToArray(_useLocalStorage, 1),
       token = _useLocalStorage2[0];
 
@@ -787,8 +787,10 @@ var TaskMainView = function TaskMainView(props) {
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_13__["useState"])(null),
       _useState6 = _slicedToArray(_useState5, 2),
       editRowId = _useState6[0],
-      setEditRowId = _useState6[1]; // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
+      setEditRowId = _useState6[1]; //useRef to get reference to formik component to be able to reset form from refresh button
 
+
+  var refForm = Object(react__WEBPACK_IMPORTED_MODULE_13__["useRef"])(null); // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
 
   Object(react__WEBPACK_IMPORTED_MODULE_13__["useEffect"])(function () {
     getTaskList();
@@ -808,8 +810,8 @@ var TaskMainView = function TaskMainView(props) {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_19__["postXhr"])("/task/add", values, {
-                "x-auth": token
+              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_19__["postXhr"])('/task/add', values, {
+                'x-auth': token
               });
 
             case 3:
@@ -824,7 +826,7 @@ var TaskMainView = function TaskMainView(props) {
 
               actions.resetForm();
               actions.setStatus({
-                msg: "Task added"
+                msg: 'Task added'
               });
               _context.next = 11;
               return getTaskList();
@@ -832,7 +834,7 @@ var TaskMainView = function TaskMainView(props) {
             case 11:
               window.setTimeout(function () {
                 actions.setStatus({
-                  msg: ""
+                  msg: ''
                 });
               }, 5000);
               _context.next = 17;
@@ -858,7 +860,7 @@ var TaskMainView = function TaskMainView(props) {
               _context.prev = 20;
               _context.t0 = _context["catch"](0);
               setIsAuthorized(false);
-              props.history.push("/task/unauthorized");
+              props.history.push('/task/unauthorized');
 
             case 24:
             case "end":
@@ -913,7 +915,7 @@ var TaskMainView = function TaskMainView(props) {
               _context3.prev = 0;
               _context3.next = 3;
               return Object(_common_utils__WEBPACK_IMPORTED_MODULE_19__["postXhr"])(url, body, {
-                "x-auth": token
+                'x-auth': token
               });
 
             case 3:
@@ -925,7 +927,7 @@ var TaskMainView = function TaskMainView(props) {
               _context3.prev = 6;
               _context3.t0 = _context3["catch"](0);
               setIsAuthorized(false);
-              props.history.push("/task/unauthorized");
+              props.history.push('/task/unauthorized');
 
             case 10:
             case "end":
@@ -951,7 +953,7 @@ var TaskMainView = function TaskMainView(props) {
           switch (_context4.prev = _context4.next) {
             case 0:
               if (evt.keyCode === 13) {
-                handleAction("/task/edit", {
+                handleAction('/task/edit', {
                   _id: _id,
                   name: evt.target.value
                 });
@@ -982,12 +984,12 @@ var TaskMainView = function TaskMainView(props) {
             case 0:
               _context5.prev = 0;
               _context5.next = 3;
-              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_19__["postXhr"])("task/logout", {}, {
-                "x-auth": token
+              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_19__["postXhr"])('task/logout', {}, {
+                'x-auth': token
               });
 
             case 3:
-              props.history.push("/task/login");
+              props.history.push('/task/login');
               _context5.next = 10;
               break;
 
@@ -995,7 +997,7 @@ var TaskMainView = function TaskMainView(props) {
               _context5.prev = 6;
               _context5.t0 = _context5["catch"](0);
               setIsAuthorized(false);
-              props.history.push("/task/unauthorized");
+              props.history.push('/task/unauthorized');
 
             case 10:
             case "end":
@@ -1026,8 +1028,8 @@ var TaskMainView = function TaskMainView(props) {
               //if any field in the row is in edit mode -> turn it off
               setEditRowId(null);
               _context6.next = 4;
-              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_19__["getXhr"])("/task/all", {
-                "x-auth": token
+              return Object(_common_utils__WEBPACK_IMPORTED_MODULE_19__["getXhr"])('/task/all', {
+                'x-auth': token
               });
 
             case 4:
@@ -1042,7 +1044,7 @@ var TaskMainView = function TaskMainView(props) {
               _context6.prev = 10;
               _context6.t0 = _context6["catch"](0);
               setIsAuthorized(false);
-              props.history.push("/task/unauthorized");
+              props.history.push('/task/unauthorized');
 
             case 14:
             case "end":
@@ -1057,89 +1059,148 @@ var TaskMainView = function TaskMainView(props) {
     };
   }();
 
+  var handleRefresh =
+  /*#__PURE__*/
+  function () {
+    var _ref11 = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee7() {
+      return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              //reset formik form using reference refForm
+              refForm.current.handleReset();
+              getTaskList();
+
+            case 2:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
+    }));
+
+    return function handleRefresh() {
+      return _ref11.apply(this, arguments);
+    };
+  }();
+
   return isAuthorized ? react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["Card"], {
     className: "dark"
   }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["CardBody"], {
     className: "d-flex flex-row justify-content-between"
   }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["Button"], {
-    onClick: getTaskList,
+    className: "task-btn",
+    onClick: handleRefresh,
     color: "secondary"
   }, "refresh"), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["Button"], {
+    className: "task-btn",
     onClick: handleLogout,
     color: "secondary"
   }, "logout")), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_18__["Formik"], {
+    ref: refForm,
     initialValues: {
-      name: "",
+      name: '',
       status: false
     },
     validationSchema: TaskSchema,
     onSubmit: handleSubmit,
-    component: function component(_ref11) {
-      var isValid = _ref11.isValid,
-          isSubmitting = _ref11.isSubmitting,
-          status = _ref11.status;
+    component: function component(_ref12) {
+      var isValid = _ref12.isValid,
+          isSubmitting = _ref12.isSubmitting,
+          status = _ref12.status;
       return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_18__["Form"], null, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
-        className: "d-flex flex-row"
+        className: "d-flex flex-row w-100"
       }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_18__["Field"], {
         component: _PgInput__WEBPACK_IMPORTED_MODULE_16__["default"],
         name: "name",
         className: "mr-2",
         type: "text",
-        placeholder: "task name"
+        placeholder: "task name",
+        maxLength: 160
       }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
         className: "position-relative statusContainer"
       }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_18__["Field"], {
         component: _PgInput__WEBPACK_IMPORTED_MODULE_16__["default"],
         name: "status",
         type: "checkbox",
+        className: "pointer",
         id: "_taskstatus"
       }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["Label"], {
-        className: "position-relative statusLabel",
+        className: "position-relative statusLabel pointer",
         for: "_taskstatus"
       }, "completed")), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["Button"], {
         disabled: !isValid || isSubmitting,
+        className: "task-btn",
         color: "secondary"
       }, "add")), status && status.msg ? react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["Input"], {
         type: "hidden",
         valid: true
       }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["FormFeedback"], {
         valid: true
-      }, status.msg)) : "");
+      }, status.msg)) : '');
     }
   })), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["CardBody"], null, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["Table"], {
     striped: true,
     dark: true
-  }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("th", null, "Name"), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("th", null, "Created"), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("th", null))), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("tbody", null, taskList.length ? taskList.map(function (_ref12, key) {
-    var name = _ref12.name,
-        status = _ref12.status,
-        creationDate = _ref12.creationDate,
-        _id = _ref12._id;
+  }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("th", null, "Name"), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("th", null, "Created"), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("th", null))), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("tbody", null, taskList.length ? taskList.map(function (_ref13, key) {
+    var name = _ref13.name,
+        status = _ref13.status,
+        creationDate = _ref13.creationDate,
+        _id = _ref13._id;
     return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("tr", {
       key: key
     }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", null, editRowId === key ? react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["Input"], {
       onKeyDown: handleKeyDown.bind(null, _id),
       type: "text",
       defaultValue: name
-    }) : name), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", null, new Date(creationDate).toLocaleDateString("pl-PL", {
-      hour: "2-digit",
-      minute: "2-digit"
-    })), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", null, status ? "Completed" : "Not Completed"), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", null, status ? react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdUndo"], {
-      onClick: handleAction.bind(null, "/task/edit", {
+    }) : name), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", null, new Date(creationDate).toLocaleDateString('pl-PL', {
+      hour: '2-digit',
+      minute: '2-digit'
+    })), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", null, status ? 'Completed' : 'Not Completed'), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", {
+      className: "d-flex justify-content-sm-around"
+    }, status ? react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+      id: "_".concat(key, "action")
+    }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdUndo"], {
+      className: "pointer m-1 mb-2",
+      onClick: handleAction.bind(null, '/task/edit', {
         _id: _id,
         status: false
       })
-    }) : react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdDone"], {
-      onClick: handleAction.bind(null, "/task/edit", {
+    }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["UncontrolledTooltip"], {
+      placement: "top",
+      target: "_".concat(key, "action")
+    }, "Undo complete")) : react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+      id: "_".concat(key, "action")
+    }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdDone"], {
+      className: "pointer m-1 mb-2",
+      onClick: handleAction.bind(null, '/task/edit', {
         _id: _id,
         status: true
       })
-    }), " ", react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdModeEdit"], {
+    }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["UncontrolledTooltip"], {
+      placement: "top",
+      target: "_".concat(key, "action")
+    }, "Complete")), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+      id: "_".concat(key, "edit")
+    }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdModeEdit"], {
+      className: "pointer m-1 mb-2",
       onClick: handleEditMode.bind(null, key)
-    }), " ", react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdDelete"], {
-      onClick: handleAction.bind(null, "/task/delete", {
+    }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["UncontrolledTooltip"], {
+      placement: "top",
+      target: "_".concat(key, "edit")
+    }, "Edit")), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+      id: "_".concat(key, "delete")
+    }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdDelete"], {
+      className: "pointer m-1 mb-2",
+      onClick: handleAction.bind(null, '/task/delete', {
         _id: _id
       })
-    }), " "));
+    }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["UncontrolledTooltip"], {
+      placement: "top",
+      target: "_".concat(key, "delete")
+    }, "Delete"))));
   }) : react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", {
     colSpan: "4"
   }, "No data to display"))))))) : react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", null, "Loading...");

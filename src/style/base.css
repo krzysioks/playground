@@ -21,5 +21,14 @@ body {
   top: -2px;
 }
 .pointer {
-  cursor: pointer;
+  cursor: pointer !important;
+}
+
+.task-btn {
+  height: 36px !important;
+  padding: 5px 15px 5px 15px;
+}
+
+#playground > div > div > div:nth-child(2) > form > div > div:nth-child(1) {
+  width: 100% !important;
 }
