@@ -42,10 +42,10 @@ npm install
 ```
 3. start local database server (for windows users):
 a) open cmd window
-b) navigate to "bin" folder of your mongodb server installation folder (typicly: C:\Program Files\MongoDB\Server\3.6\bin where "3.6" is version of mongodb)
+b) navigate to "bin" folder of your mongodb server installation folder (typically: C:\Program Files\MongoDB\Server\3.6\bin where "3.6" is version of mongodb)
 c) run:
 ```
-mongod.exe --dbpath /Users/krzysztofp/mongo-data
+mongod.exe --dbpath /Users/YourUserName/mongo-data
 ```
 d) open another cmd window; navigate to "bin" and run:
 ```
