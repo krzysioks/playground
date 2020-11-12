@@ -14,7 +14,7 @@
 		"server:watch": "env-cmd -f ./server/config/dev.env nodemon server/server.js"
 	},
 	"engines": {
-		"node": "12.4.0"
+		"node": "14.15.0"
 	},
 	"jest": {
 		"preset": "jest-puppeteer"
