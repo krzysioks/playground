@@ -18,9 +18,7 @@ Passing Lighthouse audit:
 * [yup](https://github.com/jquense/yup) - JavaScript schema builder for form validation
 * [reactstrap](https://reactstrap.github.io/) - bootstrap 4 components for React for creating layout
 * [mongodb/mongoose](https://www.mongodb.com/) - database
-* [jest](https://jestjs.io/) - JavaScript test framework for back end testing
-* [puppeteer](https://github.com/puppeteer/puppeteer) - JavaScript testing framework for front end testing
-
+* [jest](https://jestjs.io/) - JavaScript Testing Framework for testing back end
 
 
 ## Prerequisites
@@ -42,10 +40,10 @@ npm install
 ```
 3. start local database server (for windows users):
 a) open cmd window
-b) navigate to "bin" folder of your mongodb server installation folder (typically: C:\Program Files\MongoDB\Server\3.6\bin where "3.6" is version of mongodb)
+b) navigate to "bin" folder of your mongodb server installation folder (typicly: C:\Program Files\MongoDB\Server\3.6\bin where "3.6" is version of mongodb)
 c) run:
 ```
-mongod.exe --dbpath /Users/YourUserName/mongo-data
+mongod.exe --dbpath /Users/krzysztofp/mongo-data
 ```
 d) open another cmd window; navigate to "bin" and run:
 ```
@@ -72,10 +70,4 @@ To run test suites for back end run:
 
 ```
 npm run test:watch
-```
-
-To run test suites for front end run:
-
-```
-npm run ftest
 ```

@@ -255,7 +255,7 @@ const TaskMainView = (props) => {
 											<td className="d-flex justify-content-sm-around">
 												{status ? (
 													<div
-														className="pointer p-1 pb-2"
+														className="pointer p-1"
 														onClick={handleAction.bind(
 															null,
 															'/task/edit',
@@ -269,7 +269,7 @@ const TaskMainView = (props) => {
 													</div>
 												) : (
 													<div
-														className="pointer p-1 pb-2"
+														className="pointer p-1"
 														onClick={handleAction.bind(
 															null,
 															'/task/edit',
@@ -283,7 +283,7 @@ const TaskMainView = (props) => {
 													</div>
 												)}
 												<div
-													className="pointer p-1 pb-2"
+													className="pointer p-1"
 													onClick={handleEditMode.bind(
 														null,
 														key
@@ -292,7 +292,7 @@ const TaskMainView = (props) => {
 													<MdModeEdit />
 												</div>
 												<div
-													className="pointer p-1 pb-2"
+													className="pointer p-1"
 													onClick={handleAction.bind(
 														null,
 														'/task/delete',

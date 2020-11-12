@@ -1161,22 +1161,22 @@ var TaskMainView = function TaskMainView(props) {
     })), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", null, status ? 'Completed' : 'Not Completed'), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("td", {
       className: "d-flex justify-content-sm-around"
     }, status ? react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
-      className: "pointer p-1 pb-2",
+      className: "pointer p-1",
       onClick: handleAction.bind(null, '/task/edit', {
         _id: _id,
         status: false
       })
     }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdUndo"], null)) : react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
-      className: "pointer p-1 pb-2",
+      className: "pointer p-1",
       onClick: handleAction.bind(null, '/task/edit', {
         _id: _id,
         status: true
       })
     }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdDone"], null)), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
-      className: "pointer p-1 pb-2",
+      className: "pointer p-1",
       onClick: handleEditMode.bind(null, key)
     }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(react_icons_md__WEBPACK_IMPORTED_MODULE_20__["MdModeEdit"], null)), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
-      className: "pointer p-1 pb-2",
+      className: "pointer p-1",
       onClick: handleAction.bind(null, '/task/delete', {
         _id: _id
       })
