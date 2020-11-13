@@ -75,6 +75,6 @@
 		"webpack-config-utils": "^2.3.1"
 	},
 	"browserslist": [
-		"ie 11"
+		"last 2 versions"
 	]
 }
