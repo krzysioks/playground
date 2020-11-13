@@ -8,7 +8,7 @@
 		"test": "env-cmd -f ./server/config/test.env jest Btest --runInBand",
 		"test:watch": "env-cmd -f ./server/config/test.env jest Btest --watch --runInBand",
 		"ftest": "env-cmd -f ./server/config/ftest.env jest Ftest --runInBand",
-		"build": "webpack --env.dev",
+		"build": "webpack --env.prod",
 		"build:dev": "webpack --env.dev",
 		"build:watch": "webpack -w --env.dev",
 		"server:watch": "env-cmd -f ./server/config/dev.env nodemon server/server.js"
