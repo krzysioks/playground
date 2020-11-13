@@ -44,12 +44,14 @@ export default (env) => {
 				})
 			),
 			ifProd(
-				new CopyWebpackPlugin([
-					{
-						from: resolve(__dirname, 'src/pwa'),
-						to: resolve(__dirname, 'dist'),
-					},
-				])
+				new CopyWebpackPlugin({
+					patterns: [
+						{
+							from: resolve(__dirname, 'src/pwa'),
+							to: resolve(__dirname, 'dist'),
+						},
+					],
+				})
 			),
 			new OfflinePlugin({
 				externals: ['/'],

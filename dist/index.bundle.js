@@ -159,16 +159,23 @@
 /*!******************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/style/base.css ***!
   \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
 // Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-exports = ___CSS_LOADER_API_IMPORT___(false);
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
 // Module
-exports.push([module.i, "html,\nbody {\n\theight: 100%;\n\tbackground-color: #d3d3d3;\n}\n.dark {\n\tbackground-color: rgb(211, 211, 211);\n}\n.app {\n\theight: 100%;\n}\n.loginCard {\n\twidth: 300px;\n\theight: 450px;\n}\n.statusContainer {\n\ttop: 7px;\n\tmargin: 0px 45px 0px 45px;\n}\n.statusLabel {\n\ttop: -2px;\n}\n.pointer {\n\tcursor: pointer !important;\n}\n\n.task-btn {\n\theight: 36px !important;\n\tpadding: 5px 15px 5px 15px;\n}\n\n#playground > div > div > div:nth-child(2) > form > div > div:nth-child(1) {\n\twidth: 100% !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, "html,\nbody {\n\theight: 100%;\n\tbackground-color: #d3d3d3;\n}\n.dark {\n\tbackground-color: rgb(211, 211, 211);\n}\n.app {\n\theight: 100%;\n}\n.loginCard {\n\twidth: 300px;\n\theight: 450px;\n}\n.statusContainer {\n\ttop: 7px;\n\tmargin: 0px 45px 0px 45px;\n}\n.statusLabel {\n\ttop: -2px;\n}\n.pointer {\n\tcursor: pointer !important;\n}\n\n.task-btn {\n\theight: 36px !important;\n\tpadding: 5px 15px 5px 15px;\n}\n\n#playground > div > div > div:nth-child(2) > form > div > div:nth-child(1) {\n\twidth: 100% !important;\n}\n", "",{"version":3,"sources":["webpack://./src/style/base.css"],"names":[],"mappings":"AAAA;;CAEC,YAAY;CACZ,yBAAyB;AAC1B;AACA;CACC,oCAAoC;AACrC;AACA;CACC,YAAY;AACb;AACA;CACC,YAAY;CACZ,aAAa;AACd;AACA;CACC,QAAQ;CACR,yBAAyB;AAC1B;AACA;CACC,SAAS;AACV;AACA;CACC,0BAA0B;AAC3B;;AAEA;CACC,uBAAuB;CACvB,0BAA0B;AAC3B;;AAEA;CACC,sBAAsB;AACvB","sourcesContent":["html,\nbody {\n\theight: 100%;\n\tbackground-color: #d3d3d3;\n}\n.dark {\n\tbackground-color: rgb(211, 211, 211);\n}\n.app {\n\theight: 100%;\n}\n.loginCard {\n\twidth: 300px;\n\theight: 450px;\n}\n.statusContainer {\n\ttop: 7px;\n\tmargin: 0px 45px 0px 45px;\n}\n.statusLabel {\n\ttop: -2px;\n}\n.pointer {\n\tcursor: pointer !important;\n}\n\n.task-btn {\n\theight: 36px !important;\n\tpadding: 5px 15px 5px 15px;\n}\n\n#playground > div > div > div:nth-child(2) > form > div > div:nth-child(1) {\n\twidth: 100% !important;\n}\n"],"sourceRoot":""}]);
 // Exports
-module.exports = exports;
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -666,7 +673,7 @@ var TaskLogin = function TaskLogin(props) {
     className: "app d-flex justify-content-center align-items-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["Card"], {
     className: "loginCard"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["CardBody"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["CardTitle"], null, "Welcome to Task Application Login Page"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_18__["Formik"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["CardBody"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_17__["CardTitle"], null, "Welcome to Task Application"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(formik__WEBPACK_IMPORTED_MODULE_18__["Formik"], {
     initialValues: {
       username: '',
       password: ''
@@ -1441,7 +1448,7 @@ var Unauthorized = function Unauthorized() {
   }, "You are not authorized to access this page. Please", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     className: "ml-1",
     to: "/task/login"
-  }, " log in")));
+  }, ' ', "log in")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Unauthorized));
@@ -1463,9 +1470,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.css */ "./node_modules/bootstrap/dist/css/bootstrap.css");
-/* harmony import */ var bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _style_base_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./style/base.css */ "./src/style/base.css");
-/* harmony import */ var _style_base_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_style_base_css__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var offline_plugin_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! offline-plugin/runtime */ "./node_modules/offline-plugin/runtime.js");
 /* harmony import */ var offline_plugin_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(offline_plugin_runtime__WEBPACK_IMPORTED_MODULE_5__);
 
@@ -1501,28 +1506,27 @@ react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render( /*#__PURE__*/react__WEB
 /*!****************************!*\
   !*** ./src/style/base.css ***!
   \****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var api = __webpack_require__(/*! ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-            var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js!./base.css */ "./node_modules/css-loader/dist/cjs.js!./src/style/base.css");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_base_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js!./base.css */ "./node_modules/css-loader/dist/cjs.js!./src/style/base.css");
 
-            content = content.__esModule ? content.default : content;
-
-            if (typeof content === 'string') {
-              content = [[module.i, content, '']];
-            }
+            
 
 var options = {};
 
 options.insert = "head";
 options.singleton = false;
 
-var update = api(content, options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_base_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-module.exports = content.locals || {};
+/* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_base_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ })
 
