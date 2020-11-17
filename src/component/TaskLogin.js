@@ -50,7 +50,7 @@ const TaskLogin = (props) => {
 		<div className="app d-flex justify-content-center align-items-center">
 			<Card className="loginCard">
 				<CardBody>
-					<CardTitle>Welcome to Task Application</CardTitle>
+					<CardTitle>Welcome to Task App</CardTitle>
 					<Formik
 						initialValues={{ username: '', password: '' }}
 						validationSchema={LoginSchema} //schema used to validate form fields
