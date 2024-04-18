@@ -7,7 +7,7 @@ module.exports = {
         browser: true,
         node: true
     },
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
     extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:jest/recommended'],
     rules: {
         'linebreak-style': 0,
