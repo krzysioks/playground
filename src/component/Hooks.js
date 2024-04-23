@@ -21,5 +21,5 @@ const Hooks = () => {
             <button onClick={_onClickHandler}>Count</button>
         </div>
     );
-}
+};
 export default Hooks;
