@@ -1,5 +1,5 @@
 const express = require('express');
-//UserModel,TaskModel defines how the document (i.e. record) in database looks like (from what props consist of (i.e. columns)). 
+//UserModel,TaskModel defines how the document (i.e. record) in database looks like (from what props consist of (i.e. columns)).
 const UserModel = require('../models/user.js');
 const TaskModel = require('../models/task.js');
 const _ = require('lodash');
@@ -23,7 +23,11 @@ taskRouter.post('/task/login', async (req, res) => {
 });
 
 taskRouter.post('/task/register', async (req, res) => {
-    const { username, password, email } = _.pick(req.body, ['username', 'password', 'email']);
+    const { username, password, email } = _.pick(req.body, [
+        'username',
+        'password',
+        'email'
+    ]);
 
     //every time we want to add new user we create a new instance of UserModel.
     const user = new UserModel({
@@ -75,9 +79,13 @@ taskRouter.post('/task/edit', auth, async (req, res) => {
     }
     const token = req.header('x-auth');
     const user = await UserModel.findUserByToken(token);
-    await TaskModel.findOneAndUpdate({ _id: req.body._id, taskOwnerId: user._id }, updateObj, {
-        useFindAndModify: false
-    });
+    await TaskModel.findOneAndUpdate(
+        { _id: req.body._id, taskOwnerId: user._id },
+        updateObj,
+        {
+            useFindAndModify: false
+        }
+    );
     res.status(200).send({});
 });
 
@@ -95,7 +103,9 @@ taskRouter.post('/task/delete', auth, async (req, res) => {
         }
         res.status(200).send({});
     } catch (error) {
-        res.status(400).send({ errorMessage: 'Failed to remove task - already deleted' });
+        res.status(400).send({
+            errorMessage: 'Failed to remove task - already deleted'
+        });
     }
 });
 
@@ -120,6 +130,14 @@ taskRouter.get('/task/all', auth, async (req, res) => {
         res.status(200).send({ tasks });
     } catch (error) {
         res.status(200).send({ tasks: [] });
+    }
+});
+
+taskRouter.get('/', async (req, res) => {
+    try {
+        res.redirect('/task/login').status(302);
+    } catch (error) {
+        res.status(200).send({ errorMessage: 'Unable to redirect' });
     }
 });
 

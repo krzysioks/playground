@@ -1,15 +1,16 @@
-// import webpack from 'webpack';
 import { resolve } from 'path';
-import { getIfUtils, removeEmpty } from 'webpack-config-utils';
-import ManifestPlugin from 'webpack-manifest-plugin';
+import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import OfflinePlugin from 'offline-plugin';
 
-export default (env) => {
-    const { ifProd, ifNotProd } = getIfUtils(env);
+export default env => {
+    const isProd = env?.prod ?? false;
+
+    const WebpackManifestPluginOptions = {
+        fileName: 'asset-manifest.json'
+    };
 
     return {
-        mode: ifProd('production', 'development'),
+        mode: isProd ? 'production' : 'development',
         entry: {
             index: './src/index.js'
         },
@@ -17,7 +18,7 @@ export default (env) => {
             filename: '[name].bundle.js',
             path: resolve(__dirname, 'dist')
         },
-        devtool: ifNotProd('cheap-module-source-map'),
+        devtool: !isProd ? 'cheap-module-source-map' : '',
         module: {
             rules: [
                 {
@@ -29,7 +30,7 @@ export default (env) => {
                 },
                 {
                     test: /\.scss$|\.css$/,
-                    loader: 'style-loader!css-loader'
+                    use: ['style-loader', 'css-loader']
                 },
                 {
                     test: /\.(png|svg|jpg|gif)$/,
@@ -37,30 +38,21 @@ export default (env) => {
                 }
             ]
         },
-        plugins: removeEmpty([
-            ifProd(
-                new ManifestPlugin({
-                    fileName: 'asset-manifest.json'
-                })
-            ),
-            ifProd(
-                new CopyWebpackPlugin({
-                    patterns: [
-                        {
-                            from: resolve(__dirname, 'src/pwa'),
-                            to: resolve(__dirname, 'dist')
-                        }
-                    ]
-                })
-            ),
-            new OfflinePlugin({
-                externals: ['/'],
-                appShell: '/',
-                ServiceWorker: {
-                    events: true
-                }
-            })
-        ]),
+        plugins: [
+            isProd
+                ? new WebpackManifestPlugin(WebpackManifestPluginOptions)
+                : null,
+            isProd
+                ? new CopyWebpackPlugin({
+                      patterns: [
+                          {
+                              from: resolve(__dirname, 'src/pwa'),
+                              to: resolve(__dirname, 'dist')
+                          }
+                      ]
+                  })
+                : null
+        ].filter(item => item),
         optimization: {
             splitChunks: {
                 cacheGroups: {

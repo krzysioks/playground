@@ -8,9 +8,9 @@
     "test": "env-cmd -f ./server/config/test.env jest Btest --runInBand",
     "test:watch": "env-cmd -f ./server/config/test.env jest Btest --watch --runInBand",
     "ftest": "env-cmd -f ./server/config/ftest.env jest Ftest --runInBand",
-    "build": "webpack --env.prod",
-    "build:dev": "webpack --env.dev",
-    "build:watch": "webpack -w --env.dev",
+    "build": "webpack --env prod",
+    "build:dev": "webpack --env dev",
+    "build:watch": "webpack -w --env dev",
     "server:watch": "env-cmd -f ./server/config/.env nodemon server/server.js"
   },
   "engines": {
@@ -42,14 +42,12 @@
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.8.1",
     "nodemon": "^3.1.0",
-    "offline-plugin": "^5.0.7",
     "puppeteer": "^22.6.5",
     "sass-loader": "^14.2.1",
     "style-loader": "^4.0.0",
-    "supertest": "^6.3.4",
+    "supertest": "^7.0.0",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
-    "webpack-config-utils": "^2.3.1",
     "webpack-manifest-plugin": "^5.0.0",
     "yup": "^1.4.0"
   },
