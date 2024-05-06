@@ -16,7 +16,8 @@ export default env => {
         },
         output: {
             filename: '[name].bundle.js',
-            path: resolve(__dirname, 'dist')
+            path: resolve(__dirname, 'dist'),
+            publicPath: ''
         },
         devtool: !isProd ? 'cheap-module-source-map' : false,
         module: {

@@ -133,12 +133,4 @@ taskRouter.get('/task/all', auth, async (req, res) => {
     }
 });
 
-taskRouter.get('/', async (req, res) => {
-    try {
-        res.redirect('/task/login').status(302);
-    } catch (error) {
-        res.status(200).send({ errorMessage: 'Unable to redirect' });
-    }
-});
-
 module.exports = taskRouter;

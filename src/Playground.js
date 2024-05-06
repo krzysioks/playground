@@ -13,6 +13,7 @@ const Playground = () => {
         //task - app to learn how to use: frontend - hooks, formik (building forms), validation; backend - REST, authentication, mongodb
         <BrowserRouter>
             <Routes>
+                <Route path="/" element={<TaskLogin />} />
                 <Route path="/hooks" element={<Hooks />} />
                 <Route path="/task/login" element={<TaskLogin />} />
                 <Route path="/task/register" element={<TaskRegister />} />
