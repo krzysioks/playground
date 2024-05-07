@@ -33,12 +33,12 @@ const TaskRegister = () => {
         //check if password match with retyped one
         if (values.password === values.retypedpassword) {
             const { userRegistered, statusList } = await postXhr(
-                '/task/register',
+                '/task/signupUser',
                 values
             );
             if (userRegistered) {
                 actions.setStatus({
-                    msg: `Dear ${values.username}, you signed up successfully.`
+                    msg: `Dear ${values.username}, you have signed up successfully.`
                 });
             } else {
                 const errorObj = {};

@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const publicPath = path.join(__dirname, '../dist');
+const _ = require('lodash');
 //UserModel defines how the document (i.e. record) in database looks like (from what props consist of (i.e. columns)).
 // eslint-disable-next-line no-unused-vars
 const UserModel = require('./models/user.js');
@@ -23,11 +24,8 @@ app.use(bodyParser.json());
 // This code makes sure that any request that does not matches a static file
 // in the dist folder, will just serve index.html. Client side routing is
 // going to make sure that the correct content will be loaded.
-app.use((req, res) => {
-    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-    res.header('Expires', '-1');
-    res.header('Pragma', 'no-cache');
-
+app.use((req, res, next) => {
+    const header = _.pick(req.headers, ['content-type']);
     if (/(.ico|.js|.css|.jpg|.png|.map|.json)$/i.test(req.path)) {
         // split to array path string and take last element, which is a file name
         const pathToArray = req.path.split('/');
@@ -35,8 +33,17 @@ app.use((req, res) => {
         res.sendFile(
             path.join(__dirname, '../dist', pathToArray[pathToArray.length - 1])
         );
+    } else if (header['content-type'] === 'application/json') {
+        // case for REST queries (get, post)
+        next();
     } else {
-        // for any unknown route sent index.html
+        // case for reload of page or for any unknown route sent index.html
+        res.header(
+            'Cache-Control',
+            'private, no-cache, no-store, must-revalidate'
+        );
+        res.header('Expires', '-1');
+        res.header('Pragma', 'no-cache');
         res.sendFile(path.join(__dirname, '../dist', 'index.html'));
     }
 });

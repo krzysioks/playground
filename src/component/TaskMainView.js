@@ -99,7 +99,7 @@ const TaskMainView = () => {
     const handleLogout = async () => {
         try {
             await postXhr(
-                'task/logout',
+                '/task/logout',
                 {},
                 {
                     'x-auth': token
@@ -154,7 +154,7 @@ const TaskMainView = () => {
                 </CardBody>
                 <CardBody>
                     <Formik
-                        ref={refForm}
+                        innerRef={refForm}
                         initialValues={{
                             name: '',
                             status: false

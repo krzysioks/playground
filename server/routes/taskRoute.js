@@ -4,9 +4,10 @@ const UserModel = require('../models/user.js');
 const TaskModel = require('../models/task.js');
 const _ = require('lodash');
 const { handleError } = require('../common/utils.js');
-const taskRouter = new express.Router();
-const { ObjectID } = require('mongodb');
+const { ObjectId } = require('mongodb');
 const auth = require('../middleware/auth');
+
+const taskRouter = new express.Router();
 
 taskRouter.post('/task/login', async (req, res) => {
     const { username, password } = _.pick(req.body, ['username', 'password']);
@@ -22,7 +23,7 @@ taskRouter.post('/task/login', async (req, res) => {
     }
 });
 
-taskRouter.post('/task/register', async (req, res) => {
+taskRouter.post('/task/signupUser', async (req, res) => {
     const { username, password, email } = _.pick(req.body, [
         'username',
         'password',
@@ -73,7 +74,7 @@ taskRouter.post('/task/edit', auth, async (req, res) => {
     });
 
     //if req.body._id is not valid -> return error
-    if (!ObjectID.isValid(req.body._id)) {
+    if (!ObjectId.isValid(req.body._id)) {
         res.status(400).send({ errorMessage: 'Provided task id is not valid' });
         return;
     }
@@ -91,7 +92,7 @@ taskRouter.post('/task/edit', auth, async (req, res) => {
 
 taskRouter.post('/task/delete', auth, async (req, res) => {
     //if req.body._id is not valid -> return error
-    if (!ObjectID.isValid(req.body._id)) {
+    if (!ObjectId.isValid(req.body._id)) {
         res.status(400).send({ errorMessage: 'Provided task id is not valid' });
         return;
     }
