@@ -7,11 +7,12 @@ module.exports = {
         browser: true,
         node: true
     },
-    parser: '@babel/eslint-parser',
+    parser: '@typescript-eslint',
     extends: [
         'eslint:recommended',
         'plugin:react/recommended',
-        'plugin:jest/recommended'
+        'plugin:jest/recommended',
+        'plugin:@typescript-eslint/recommended'
     ],
     rules: {
         'no-prototype-builtins': 'off',
