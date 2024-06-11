@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node server/server.js",
+    "start": "env-cmd -f ./server/config/.env ts-node server/server.ts",
     "test": "env-cmd -f ./server/config/test.env jest Btest --runInBand",
     "test:watch": "env-cmd -f ./server/config/test.env jest Btest --watch --runInBand",
     "ftest": "env-cmd -f ./server/config/ftest.env jest Ftest --runInBand",
     "build": "webpack --env prod",
     "build:dev": "webpack --env dev",
     "build:watch": "webpack -w --env dev",
-    "server:watch": "env-cmd -f ./server/config/.env nodemon server/server.js"
+    "server:watch": "env-cmd -f ./server/config/.env nodemon server/server.ts"
   },
   "engines": {
     "node": ">=21.7.2"
@@ -29,7 +29,11 @@
     "@babel/preset-react": "^7.24.1",
     "@babel/preset-typescript": "^7.24.1",
     "@babel/register": "^7.12.1",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.2",
     "@types/node-fetch": "^2.6.11",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
     "@typescript-eslint/parser": "^7.9.0",
     "babel-loader": "^9.1.3",
