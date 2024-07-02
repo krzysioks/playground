@@ -5,11 +5,7 @@ import mongoose, { Types } from 'mongoose';
 
 import UserModel from '../../server/models/user';
 import TaskModel from '../../server/models/task';
-import { TaskType, UserType } from '../../server/common/types';
-
-interface UserTestType extends UserType {
-    _id: Types.ObjectId;
-}
+import { TaskType, UserTestType } from '../../server/common/types';
 
 interface MissingNameTestType extends Omit<TaskType, 'name' | '_id'> {
     _id?: Types.ObjectId;
@@ -111,24 +107,28 @@ afterAll(async () => {
     await mongoose.disconnect();
 });
 
-describe('Checking authorization middleware (auth.js)', () => {
-    test('Should authorize logged in user whith correct token and with not expired session', done => {
-        request(app)
+describe('Checking authorization middleware (auth.ts)', () => {
+    test('Should authorize logged in user whith correct token and with not expired session', async () => {
+        const response = await request(app)
             .get('/task/all')
+            .set({ 'content-type': 'application/json' })
             .set({ 'x-auth': token })
             .send()
-            .expect(200)
-            .end(done);
-        // done();
+            .expect(200);
     });
     test('Should not authorize user if x-auth header not exists', async () => {
-        const { text } = await request(app).get('/task/all').send().expect(401);
+        const { text } = await request(app)
+            .get('/task/all')
+            .set({ 'content-type': 'application/json' })
+            .send()
+            .expect(401);
         expect(JSON.parse(text).error).toBe('NOT_PRIVILEGED');
     });
     test('Should not authorize user with incorrect or no longer in db (user logged out earlier) tokens', async () => {
-        const token = jwt.sign({ _id: '12fge322' }, process.env.JWT_SECRET);
+        const token = jwt.sign({ _id: '12fg22e322' }, process.env.JWT_SECRET);
         await request(app)
             .get('/task/all')
+            .set({ 'content-type': 'application/json' })
             .set({ 'x-auth': token })
             .send()
             .expect(401);
@@ -142,6 +142,7 @@ const testTaskSchemaOnAddingTask = async (
 ): Promise<void> => {
     const { body } = await request(app)
         .post('/task/add')
+        .set({ 'content-type': 'application/json' })
         .set({ 'x-auth': token })
         .send(task)
         .expect(200);
@@ -155,6 +156,7 @@ describe('Checking adding new task route', () => {
     test('Should add correct task', async () => {
         const { body } = await request(app)
             .post('/task/add')
+            .set({ 'content-type': 'application/json' })
             .set({ 'x-auth': token })
             .send(correctTask)
             .expect(200);
@@ -175,6 +177,7 @@ describe('Checking adding new task route', () => {
     test('Should not add new task with multiple errors', async () => {
         const { body } = await request(app)
             .post('/task/add')
+            .set({ 'content-type': 'application/json' })
             .set({ 'x-auth': token })
             .send(moreThanOneErrorTask)
             .expect(200);
@@ -203,6 +206,7 @@ describe('Checking route of changing status of task', () => {
 
         await request(app)
             .post('/task/edit')
+            .set({ 'content-type': 'application/json' })
             .set({ 'x-auth': token })
             .send({ _id: t?._id, status: !task.status })
             .expect(200);
@@ -214,6 +218,7 @@ describe('Checking route of changing status of task', () => {
     test('Should not change status to completed if provided task id is incorrect', async () => {
         const { body } = await request(app)
             .post('/task/edit')
+            .set({ 'content-type': 'application/json' })
             .set({ 'x-auth': token })
             .send({ _id: 'dwww545g', status: true })
             .expect(400);
@@ -237,6 +242,7 @@ describe('Checking route of deleting task', () => {
 
         await request(app)
             .post('/task/delete')
+            .set({ 'content-type': 'application/json' })
             .set({ 'x-auth': token })
             .send({ _id: t?._id })
             .expect(200);
@@ -248,6 +254,7 @@ describe('Checking route of deleting task', () => {
     test('Should not delete task if already does not exist in db ', async () => {
         const { body } = await request(app)
             .post('/task/delete')
+            .set({ 'content-type': 'application/json' })
             .set({ 'x-auth': token })
             .send({ _id: correctUserId })
             .expect(400);
@@ -259,6 +266,7 @@ describe('Checking route of deleting task', () => {
     test('Should not delete task if provided task id is incorrect', async () => {
         const { body } = await request(app)
             .post('/task/delete')
+            .set({ 'content-type': 'application/json' })
             .set({ 'x-auth': token })
             .send({ _id: 'efefwfe45476547' })
             .expect(400);

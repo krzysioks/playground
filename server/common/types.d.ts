@@ -29,3 +29,12 @@ export interface TaskType {
     status: boolean;
     taskOwnerId?: Types.ObjectId;
 }
+
+// types for tests
+export interface UserTestType extends UserType {
+    _id: Types.ObjectId;
+    username?: string;
+    email?: string;
+    password?: string;
+    tokens?: TokenType[];
+}

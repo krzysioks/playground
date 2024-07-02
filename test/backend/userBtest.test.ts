@@ -1,22 +1,24 @@
 import request from 'supertest';
 import app from '../../server/server';
 import jwt from 'jsonwebtoken';
-import UserModel from '../../server/models/user';
 import mongoose from 'mongoose';
+
+import UserModel from '../../server/models/user';
+import { UserTestType } from '../../server/common/types';
 
 // test data
 const correctUserId = new mongoose.Types.ObjectId();
 const correctUserId2 = new mongoose.Types.ObjectId();
-const correctUserToken = jwt.sign(
+const correctUserToken: string = jwt.sign(
     { _id: correctUserId },
     process.env.JWT_SECRET
 );
-const correctUserToken2 = jwt.sign(
+const correctUserToken2: string = jwt.sign(
     { _id: correctUserId2 },
     process.env.JWT_SECRET
 );
 
-const correctUser = {
+const correctUser: UserTestType = {
     _id: correctUserId,
     username: 'dave',
     email: 'dave.josen@gmail.com',
@@ -31,7 +33,7 @@ const correctUser = {
     ]
 };
 
-const correctUser2 = {
+const correctUser2: UserTestType = {
     _id: correctUserId2,
     username: 'tom',
     email: 'tom.josen@gmail.com',
@@ -45,75 +47,80 @@ const correctUser2 = {
 
 //list of user with different types of error in provided data to test against UserModel schema
 const _id = new mongoose.Types.ObjectId();
-const noUsernameUser = {
+const noUsernameUser: UserTestType = {
     _id,
     email: 'bob@gmail.com',
     password: 'Jezzy201#'
 };
-const tooShortUsernameUser = {
+const tooShortUsernameUser: UserTestType = {
     _id,
     username: 'd',
     email: 'bobd@gmail.com',
     password: 'Jezzy201#'
 };
-const noUniquetUsernameUser = {
+const noUniquetUsernameUser: UserTestType = {
     _id,
     username: 'dave',
     email: 'bobd@gmail.com',
     password: 'Jezzy201#'
 };
-const tooLongUsernameUser = {
+const tooLongUsernameUser: UserTestType = {
     _id,
     username:
         'davedavedavedavedavedavedavedavedavedavedavedavedavedavedavedavedavedavedavedavedavedavedavedave',
     email: 'bob@gmail.com',
     password: 'Jezzy201#'
 };
-const noEmailUser = {
+const noEmailUser: UserTestType = {
     _id,
     username: 'steve',
     password: 'Jezzy201#'
 };
-const notUniqueEmailUser = {
+const notUniqueEmailUser: UserTestType = {
     _id,
     username: 'steve',
     email: 'dave.josen@gmail.com',
     password: 'Jezzy201#'
 };
-const notValidEmailUser = {
+const notValidEmailUser: UserTestType = {
     _id,
     username: 'steve',
     email: 'bobgmailcom',
     password: 'Jezzy201#'
 };
-const noPasswordUser = {
+const noPasswordUser: UserTestType = {
     _id,
     username: 'steve',
     email: 'bob@gmail.com'
 };
-const tooShortPasswordUser = {
+const tooShortPasswordUser: UserTestType = {
     _id,
     username: 'steve',
     email: 'bob@gmail.com',
     password: 'Je2'
 };
-const notValidPasswordUser = {
+const notValidPasswordUser: UserTestType = {
     _id,
     username: 'steve',
     email: 'bob@gmail.com',
     password: 'testpassword'
 };
 
-const moreThanOneErrorUser = {
+const moreThanOneErrorUser: UserTestType = {
     _id,
     username: 's',
     email: 'bobgmail.com',
     password: 'testpassword'
 };
 
-const testUserSchemaOnSignUp = async (propToTest, kind, user) => {
+const testUserSchemaOnSignUp = async (
+    propToTest: string,
+    kind: string,
+    user: UserTestType
+): Promise<void> => {
     const response = await request(app)
-        .post('/task/register')
+        .post('/task/signupUser')
+        .set({ 'content-type': 'application/json' })
         .send(user)
         .expect(200);
     expect(response.body.userRegistered).toBeFalsy();
@@ -197,7 +204,8 @@ describe('Checking if all props of User model are correctly validated against sc
     // test many errors at one time
     test('Should not sign up user with multiple errors', async () => {
         const response = await request(app)
-            .post('/task/register')
+            .post('/task/signupUser')
+            .set({ 'content-type': 'application/json' })
             .send(moreThanOneErrorUser)
             .expect(200);
         expect(response.body.userRegistered).toBeFalsy();
@@ -218,7 +226,8 @@ describe('Checking if all props of User model are correctly validated against sc
     // case when valid data provided
     test('Should sign up user with valid properties', async () => {
         const response = await request(app)
-            .post('/task/register')
+            .post('/task/signupUser')
+            .set({ 'content-type': 'application/json' })
             .send(correctUser2)
             .expect(200);
         expect(response.body.userRegistered).toBeTruthy();
@@ -229,12 +238,17 @@ describe('Checking logging out user', () => {
     test('Should logout user', async () => {
         await request(app)
             .post('/task/logout')
+            .set({ 'content-type': 'application/json' })
             .set({ 'x-auth': correctUserToken })
             .expect(200);
+
         const user = await UserModel.findById(correctUserId);
+
         //checking if user.tokens does not contains correctUserToken which should be removed by /task/logout route
         expect(
-            user.tokens.some(({ token }) => token === correctUserToken)
+            user?.tokens.some(({ token }) => {
+                return token === correctUserToken;
+            })
         ).toBeFalsy();
     });
 });

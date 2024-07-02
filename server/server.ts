@@ -4,7 +4,9 @@ const port = process.env.PORT as string;
 
 // listen to the requests
 const server = app.listen(port, (): void => {
-    console.info(`Server is on port ${port}`);
+    if (process.env.NODE_ENV !== 'production') {
+        console.info(`Server is on port ${port}`);
+    }
 });
 
 export default server;
