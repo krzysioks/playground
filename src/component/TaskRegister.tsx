@@ -1,4 +1,5 @@
 import React from 'react';
+import type { ErrorReturnType } from '../../server/common/types';
 import { Link } from 'react-router-dom';
 import PgInput from './PgInput';
 import {
@@ -9,9 +10,16 @@ import {
     FormFeedback,
     Input
 } from 'reactstrap';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, FormikHelpers } from 'formik';
 import { postXhr } from '../common/utils';
 import * as Yup from 'yup';
+
+interface ValuesType {
+    email: string;
+    password: string;
+    retypedpassword: string;
+    username: string;
+}
 
 const RegisterSchema = Yup.object().shape({
     username: Yup.string()
@@ -28,8 +36,12 @@ const RegisterSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Email is invalid')
 });
 
-const TaskRegister = () => {
-    const handleSubmit = async (values, actions) => {
+const TaskRegister: React.FC = (): React.JSX.Element => {
+    const handleSubmit = async (
+        values: ValuesType,
+        { setErrors, setSubmitting, setStatus }: FormikHelpers<ValuesType>
+    ) => {
+        console.log('values: ', values);
         //check if password match with retyped one
         if (values.password === values.retypedpassword) {
             const { userRegistered, statusList } = await postXhr(
@@ -37,23 +49,23 @@ const TaskRegister = () => {
                 values
             );
             if (userRegistered) {
-                actions.setStatus({
+                setStatus({
                     msg: `Dear ${values.username}, you have signed up successfully.`
                 });
             } else {
-                const errorObj = {};
-                statusList.forEach(([key, , msg]) => {
+                const errorObj: Record<string, string> = {};
+                (statusList as ErrorReturnType[]).forEach(([key, , msg]) => {
                     errorObj[key] = msg;
                 });
-                actions.setErrors(errorObj);
+                setErrors(errorObj);
             }
         } else {
-            actions.setErrors({
+            setErrors({
                 retypedpassword: 'Passwords do not match'
             });
         }
 
-        actions.setSubmitting(false);
+        setSubmitting(false);
     };
 
     return (

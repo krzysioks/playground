@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Alert } from 'reactstrap';
 
-const Unauthorized = () => {
+const Unauthorized: React.FC = (): React.JSX.Element => {
     return (
         <div>
             <Alert color="danger" className="d-flex justify-content-center">

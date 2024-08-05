@@ -3,9 +3,14 @@ import useLocalStorage from 'react-use-localstorage';
 import { useNavigate } from 'react-router-dom';
 import PgInput from './PgInput';
 import { Card, CardBody, CardTitle, Button } from 'reactstrap';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, FormikHelpers } from 'formik';
 import { postXhr } from '../common/utils';
 import * as Yup from 'yup';
+
+interface ValuesType {
+    password: string;
+    username: string;
+}
 
 const LoginSchema = Yup.object().shape({
     username: Yup.string()
@@ -21,10 +26,13 @@ const LoginSchema = Yup.object().shape({
         .required('Password is required')
 });
 
-const TaskLogin = () => {
+const TaskLogin: React.FC = (): React.JSX.Element => {
     const [, setItem] = useLocalStorage('token', '');
     const navigate = useNavigate();
-    const handleSubmit = async (values, actions) => {
+    const handleSubmit = async (
+        values: ValuesType,
+        { setErrors, setSubmitting }: FormikHelpers<ValuesType>
+    ) => {
         const { isUser, passwordMatched, token } = await postXhr(
             '/task/login',
             values
@@ -32,18 +40,18 @@ const TaskLogin = () => {
         if (isUser) {
             if (passwordMatched) {
                 //case when all ok. navigate to task main view which requires authentication and pass token in localStorage
-                setItem(token);
+                setItem(token as string);
                 navigate('/task/mainview');
             } else {
-                actions.setErrors({ password: 'Password does not match' });
+                setErrors({ password: 'Password does not match' });
             }
         } else {
-            actions.setErrors({ username: 'User does not exist' });
+            setErrors({ username: 'User does not exist' });
         }
-        actions.setSubmitting(false);
+        setSubmitting(false);
     };
 
-    const handleRegister = () => {
+    const handleRegister: React.EventHandler<React.SyntheticEvent> = () => {
         navigate('/task/register');
     };
 

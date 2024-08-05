@@ -24,6 +24,7 @@ export interface UserType {
 }
 
 export interface TaskType {
+    _id: Types.ObjectId;
     name: string;
     creationDate: number;
     status: boolean;

@@ -2,7 +2,13 @@ import { resolve } from 'path';
 import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
-export default env => {
+interface envType {
+    WEBPACK_WATCH?: boolean;
+    dev?: boolean;
+    prod?: boolean;
+}
+
+export default (env: envType) => {
     const isProd = env?.prod ?? false;
 
     const WebpackManifestPluginOptions = {
@@ -12,7 +18,7 @@ export default env => {
     return {
         mode: isProd ? 'production' : 'development',
         entry: {
-            index: './src/index.js'
+            index: './src/index.tsx'
         },
         output: {
             filename: '[name].bundle.js',
@@ -30,6 +36,11 @@ export default env => {
                     }
                 },
                 {
+                    test: /\.tsx?$/,
+                    use: 'babel-loader',
+                    exclude: /node_modules/
+                },
+                {
                     test: /\.scss$|\.css$/,
                     use: ['style-loader', 'css-loader']
                 },
@@ -38,6 +49,9 @@ export default env => {
                     use: ['file-loader']
                 }
             ]
+        },
+        resolve: {
+            extensions: ['.tsx', '.ts', '.js']
         },
         plugins: [
             isProd

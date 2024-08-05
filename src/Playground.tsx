@@ -6,7 +6,7 @@ import TaskMainView from './component/TaskMainView';
 import Unauthorized from './component/Unauthorized';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-const Playground = () => {
+const Playground: React.FC = (): React.JSX.Element => {
     return (
         // router used to route between entry point components which implements different exercises
         //hooks - simple example of hooks
@@ -19,7 +19,6 @@ const Playground = () => {
                 <Route path="/task/register" element={<TaskRegister />} />
                 <Route path="/task/mainview" element={<TaskMainView />} />
                 <Route path="/task/unauthorized" element={<Unauthorized />} />
-                {/* <Redirect from="/" to="/task/login" exact /> */}
             </Routes>
         </BrowserRouter>
     );

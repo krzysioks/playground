@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-const Hooks = () => {
+
+const Hooks: React.FC = (): React.JSX.Element => {
     // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
     useEffect(() => {
         fetch('./test')
@@ -9,9 +10,9 @@ const Hooks = () => {
             });
     }, []);
 
-    const [counter, setCounter] = useState(0);
-    const _onClickHandler = () => {
-        const newValue = counter + 1;
+    const [counter, setCounter] = useState<number>(0);
+    const _onClickHandler = (): void => {
+        const newValue: number = counter + 1;
         setCounter(newValue);
     };
 

@@ -2,13 +2,6 @@ import { model, Schema, Types } from 'mongoose';
 
 import { TaskType } from '../common/types';
 
-// interface TaskType {
-//     name: string;
-//     creationDate: Date;
-//     status: boolean;
-//     taskOwnerId?: Types.ObjectId;
-// }
-
 const taskSchema = new Schema<TaskType>({
     name: {
         type: String,

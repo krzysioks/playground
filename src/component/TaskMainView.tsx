@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import type { ErrorReturnType, TaskType } from '../../server/common/types';
+import { Types } from 'mongoose';
 import { useNavigate } from 'react-router-dom';
 import useLocalStorage from 'react-use-localstorage';
 import PgInput from './PgInput';
@@ -11,10 +13,23 @@ import {
     Input,
     FormFeedback
 } from 'reactstrap';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, FormikHelpers, FormikProps } from 'formik';
 import { getXhr, postXhr } from '../common/utils';
 import { MdModeEdit, MdDelete, MdDone, MdUndo } from 'react-icons/md';
 import * as Yup from 'yup';
+
+interface ValuesType {
+    name?: string;
+    status?: boolean;
+    statusList?: ErrorReturnType[];
+    taskAdded?: boolean;
+}
+
+type EditRowIdType = number | string | null | undefined;
+
+interface RefType extends FormikProps<ValuesType> {
+    handleReset: () => void;
+}
 
 const TaskSchema = Yup.object().shape({
     name: Yup.string()
@@ -23,24 +38,32 @@ const TaskSchema = Yup.object().shape({
         .required('Name of the task is required')
 });
 
-const TaskMainView = () => {
+const TaskMainView: React.FC = (): React.JSX.Element => {
     const [token] = useLocalStorage('token');
 
     const navigate = useNavigate();
 
-    const [taskList, setTaskList] = useState([]);
-    const [isAuthorized, setIsAuthorized] = useState(false);
-    const [editRowId, setEditRowId] = useState(null);
+    const [taskList, setTaskList] = useState<TaskType[]>([]);
+    const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+    const [editRowId, setEditRowId] = useState<EditRowIdType>(null);
 
     //useRef to get reference to formik component to be able to reset form from refresh button
-    const refForm = useRef(null);
+    const refForm = useRef<RefType>(null);
 
     // useEffect hook is called after every render. To simulate componentDidMount lifecycle method pass empty array as a second argument. useEffect() will be called after render only if any parameter from the list have changed.
     useEffect(() => {
         getTaskList();
     }, []);
 
-    const handleSubmit = async (values, actions) => {
+    const handleSubmit = async (
+        values: ValuesType,
+        {
+            resetForm,
+            setErrors,
+            setSubmitting,
+            setStatus
+        }: FormikHelpers<ValuesType>
+    ) => {
         try {
             const { taskAdded, statusList } = await postXhr(
                 '/task/add',
@@ -50,32 +73,32 @@ const TaskMainView = () => {
                 }
             );
             if (taskAdded) {
-                actions.resetForm();
-                actions.setStatus({ msg: 'Task added' });
+                resetForm();
+                setStatus({ msg: 'Task added' });
                 await getTaskList();
                 window.setTimeout(() => {
-                    actions.setStatus({ msg: '' });
+                    setStatus({ msg: '' });
                 }, 5000);
             } else {
-                const errorObj = {};
-                statusList.forEach(([key, , msg]) => {
+                const errorObj: Record<string, string> = {};
+                (statusList as ErrorReturnType[]).forEach(([key, , msg]) => {
                     errorObj[key] = msg;
                 });
-                actions.setErrors(errorObj);
+                setErrors(errorObj);
             }
-            actions.setSubmitting(false);
+            setSubmitting(false);
         } catch (err) {
             setIsAuthorized(false);
             navigate('/task/unauthorized');
         }
     };
 
-    const handleEditMode = async key => {
-        const keyToSet = key === editRowId ? null : key;
+    const handleEditMode = async (key: EditRowIdType) => {
+        const keyToSet: EditRowIdType = key === editRowId ? null : key;
         setEditRowId(keyToSet);
     };
 
-    const handleAction = async (url, body) => {
+    const handleAction = async (url: string, body: object) => {
         try {
             await postXhr(url, body, {
                 'x-auth': token
@@ -87,16 +110,20 @@ const TaskMainView = () => {
         }
     };
 
-    const handleKeyDown = async (_id, evt) => {
-        if (evt.keyCode === 13) {
+    const handleKeyDown = async (
+        _id: Types.ObjectId,
+        key: string,
+        name: string
+    ) => {
+        if (key === 'Enter') {
             handleAction('/task/edit', {
                 _id,
-                name: evt.target.value
+                name
             });
         }
     };
 
-    const handleLogout = async () => {
+    const handleLogout: React.EventHandler<React.SyntheticEvent> = async () => {
         try {
             await postXhr(
                 '/task/logout',
@@ -112,14 +139,14 @@ const TaskMainView = () => {
         }
     };
 
-    const getTaskList = async () => {
+    const getTaskList: () => Promise<void> = async () => {
         try {
             //if any field in the row is in edit mode -> turn it off
             setEditRowId(null);
             const { tasks } = await getXhr('/task/all', {
                 'x-auth': token
             });
-            setTaskList(tasks);
+            setTaskList(tasks as TaskType[]);
             setIsAuthorized(true);
         } catch (err) {
             setIsAuthorized(false);
@@ -127,9 +154,11 @@ const TaskMainView = () => {
         }
     };
 
-    const handleRefresh = async () => {
+    const handleRefresh: React.EventHandler<
+        React.SyntheticEvent
+    > = async () => {
         //reset formik form using reference refForm
-        refForm.current.handleReset();
+        refForm?.current?.handleReset();
         getTaskList();
     };
 
@@ -230,10 +259,15 @@ const TaskMainView = () => {
                                             <td>
                                                 {editRowId === key ? (
                                                     <Input
-                                                        onKeyDown={handleKeyDown.bind(
-                                                            null,
-                                                            _id
-                                                        )}
+                                                        onKeyDown={evt =>
+                                                            handleKeyDown(
+                                                                _id,
+                                                                evt.key,
+                                                                evt
+                                                                    .currentTarget
+                                                                    .value
+                                                            )
+                                                        }
                                                         type="text"
                                                         defaultValue={name}
                                                     />
@@ -286,10 +320,9 @@ const TaskMainView = () => {
                                                 )}
                                                 <div
                                                     className="pointer p-1"
-                                                    onClick={handleEditMode.bind(
-                                                        null,
-                                                        key
-                                                    )}
+                                                    onClick={() =>
+                                                        handleEditMode(key)
+                                                    }
                                                 >
                                                     <MdModeEdit />
                                                 </div>
@@ -311,7 +344,7 @@ const TaskMainView = () => {
                                 )
                             ) : (
                                 <tr>
-                                    <td colSpan="4">No data to display</td>
+                                    <td colSpan={4}>No data to display</td>
                                 </tr>
                             )}
                         </tbody>
