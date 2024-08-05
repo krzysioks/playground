@@ -5,14 +5,14 @@ import mongoose, { Types } from 'mongoose';
 
 import UserModel from '../../server/models/user';
 import TaskModel from '../../server/models/task';
-import { TaskType, UserTestType } from '../../server/common/types';
+import { TaskTestType, UserTestType } from '../../server/common/types';
 
-interface MissingNameTestType extends Omit<TaskType, 'name' | '_id'> {
+interface MissingNameTestType extends Omit<TaskTestType, 'name' | '_id'> {
     _id?: Types.ObjectId;
     name?: string;
 }
 
-interface MissingStatusTestType extends Omit<TaskType, 'status' | '_id'> {
+interface MissingStatusTestType extends Omit<TaskTestType, 'status' | '_id'> {
     _id?: Types.ObjectId;
     status?: string;
 }
@@ -35,7 +35,7 @@ const correctUser: UserTestType = {
     ]
 };
 
-const taskList: TaskType[] = [
+const taskList: TaskTestType[] = [
     {
         name: 'Fix internet',
         creationDate: new Date().getTime(),
@@ -56,7 +56,7 @@ const taskList: TaskType[] = [
     }
 ];
 
-const correctTask: TaskType = {
+const correctTask: TaskTestType = {
     name: 'Pay for the goodies',
     creationDate: new Date().getTime(),
     status: false,
@@ -67,13 +67,13 @@ const noNameTask: MissingNameTestType = {
     status: false,
     taskOwnerId: correctUserId
 };
-const tooShortNameTask: TaskType = {
+const tooShortNameTask: TaskTestType = {
     name: 't',
     creationDate: new Date().getTime(),
     status: false,
     taskOwnerId: correctUserId
 };
-const tooLongNameTask: TaskType = {
+const tooLongNameTask: TaskTestType = {
     name: 'Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test Test test test test ',
     creationDate: new Date().getTime(),
     status: false,
@@ -193,7 +193,7 @@ describe('Checking adding new task route', () => {
 describe('Checking route of changing status of task', () => {
     test('Should change status to completed', async () => {
         await TaskModel.deleteMany();
-        const task: TaskType = {
+        const task: TaskTestType = {
             name: 'Change status test',
             creationDate: new Date().getTime(),
             status: false,
@@ -229,7 +229,7 @@ describe('Checking route of changing status of task', () => {
 describe('Checking route of deleting task', () => {
     test('Should delete task', async () => {
         await TaskModel.deleteMany();
-        const task: TaskType = {
+        const task: TaskTestType = {
             name: 'Delete status test',
             creationDate: new Date().getTime(),
             status: true,

@@ -39,3 +39,21 @@ export interface UserTestType extends UserType {
     password?: string;
     tokens?: TokenType[];
 }
+
+export interface TaskTestType extends TaskType {
+    _id?: Types.ObjectId;
+    name?: string;
+    creationDate?: number;
+    status?: boolean;
+    taskOwnerId?: Types.ObjectId;
+}
+
+interface ViewPortOptionType {
+    width: number;
+    height: number;
+}
+
+export interface ViewPortType {
+    vpQHD: ViewPortOptionType;
+    vpHD: ViewPortOptionType;
+}
