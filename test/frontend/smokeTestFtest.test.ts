@@ -190,7 +190,7 @@ describe('Front end test', () => {
                     setTimeout(async () => {
                         await browser.close();
                         await done();
-                    }, 1000);
+                    }, 1500);
                 }, 1000);
             });
     });
@@ -349,7 +349,7 @@ describe('Front end test', () => {
                 );
 
                 expect(label).toBe(
-                    `Dear ${userToRegister.username}, you signed up successfully.`
+                    `Dear ${userToRegister.username}, you have signed up successfully.`
                 );
 
                 //close browser after 1500ms
